@@ -1,5 +1,3 @@
-## Vivado Quickstart
-
 _this is a short guide to run test benches, and add source files_
 
 1) First, find the project folder, and select the project file
