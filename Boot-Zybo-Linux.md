@@ -27,7 +27,7 @@ cp Zybo-Z7-20/pre-built/linux/images/BOOT.BIN Zybo-Z7-20/pre-built/linux/images/
 ---
 ### Setup SD Card
 ---
-1) Format the SD card using fdisk as such:
+1) Format the SD card using fdisk as such *(done on Linux machine)*:
 
 ```console
 $ sudo fdisk /dev/mmcblk0
@@ -71,5 +71,8 @@ sudo mkfs.vfat -F32 /dev/mmcblk0
 
 3) Mount SD card and copy files
 
-4) Viola! You did it.
+4) open UART connection *(done on a Mac)* and press reset button on FPGA
+```console
+screen /dev/cu.usbserial-210351B481FA1 115200
+```
 ---
