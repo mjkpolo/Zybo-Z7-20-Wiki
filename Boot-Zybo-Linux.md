@@ -75,4 +75,3 @@ sudo mkfs.vfat -F32 /dev/mmcblk0
 ```console
 screen /dev/cu.usbserial-210351B481FA1 115200
 ```
----
