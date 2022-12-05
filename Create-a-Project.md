@@ -131,6 +131,7 @@ int UartLitePolledExample(u16 DeviceId)
 
 - Click `File -> Export -> Export Bitstream File...` (Ex. bs.bit) and try to export it to the Vivado project directory (may default Vitis)
 - Click **Tcl Console** at the bottom
+- You may need to cd and navigate into the correct directory. The Tcl Console sends unknown commands to the OS Shell so cd is valid
 - Next, execute this magic command (Ex. using bs.bit)
 ```
 write_cfgmem -force -format bin -interface smapx32 -disablebitswap -loadbit "up 0 bs.bit" bs.bin
