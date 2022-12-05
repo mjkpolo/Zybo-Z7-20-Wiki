@@ -43,6 +43,10 @@ set_property -dict { PACKAGE_PIN P14   IOSTANDARD LVCMOS33     } [get_ports { tx
 set_property -dict { PACKAGE_PIN R14   IOSTANDARD LVCMOS33     } [get_ports { rx_0 }]; #IO_L6N_T0_VREF_34 Sch=jd_n[2]  
 ```
 
+At the end, your board design should look like this:
+
+![Screen_Shot_2022-12-05_at_2.52.53_PM](uploads/a9abb5389d3c7d178d43c2c45d70e4f1/Screen_Shot_2022-12-05_at_2.52.53_PM.png)
+
 ## Export Hardware to Vitis
 
 Under `PROGRAM AND DEBUG` click **Generate Bitstream**. Progress can be monitored at the bottom by clicking **Design Runs**
@@ -111,3 +115,29 @@ int UartLitePolledExample(u16 DeviceId)
 	return XST_SUCCESS;
 }
 ```
+
+- Click the Hammer logo in the upper left to build to project. After building you should see a `.elf` file (Ex. example_vitis.elf) under `Debug`
+
+## Add ELF to Microblaze
+
+- Switch back to your Vivado window and click **Open Block Design** under `IP INTEGRATOR`
+- Once you switch back to the `Diagram`, right click on the MicroBlaze IP block and click **Associate Elf Files...**
+- Click the three dots next to `Design Sources -> design_1 -> microblaze_0`
+- Click **Add Files...** and select the elf file in the Debug folder of your Vitis project
+- Check the box **Copy elf files into project** (I don't believe it is necessary, but have not confirmed)
+- Under `PROGRAM AND DEBUG` again click **Generate Bitstream**
+
+## Export Bitstream
+
+- Click `File -> Export -> Export Bitstream File...` (Ex. bs.bit) and try to export it to the Vivado project directory (may default Vitis)
+- Click **Tcl Console** at the bottom
+- Next, execute this magic command (Ex. using bs.bit)
+```
+write_cfgmem -force -format bin -interface smapx32 -disablebitswap -loadbit "up 0 bs.bit" bs.bin
+```
+This generates `bs.bin` which the FPGA manager in Petalinux can read
+
+
+### Congratulations!
+
+Next, checkout my Petalinux tutorial to learn how to flash the bitstream using Linux
