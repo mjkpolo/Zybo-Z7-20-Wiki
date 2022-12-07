@@ -18,7 +18,7 @@ Next, we need to connect our board signals to the IP. Click on **Board** in the 
 
 Next, we need to add the UART IP and LEDs
 
-- Presss `+` and search for **AXI Uartlite**
+- Press `+` and search for **AXI Uartlite**
 - Click **Run Connection Automation** and click **All Automation**
 - Find `uart_rtl`. Click the dropdown menu on the Uartlite IP, then delete `uart_rtl` and right click on **rx** and **tx** and click **Make External**. The default names for these pins are `tx_0` and `rx_0`
 - Click and drag the **4 LEDs** from the board tab onto the Block Design
