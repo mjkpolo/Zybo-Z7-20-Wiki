@@ -8,18 +8,18 @@ To build the image, choose a petalinux installer and select it using a build arg
 docker build --build-arg PETA=petalinux-v2021.1-final-installer.run -t peta .
 ```
 
-Next, enter the docker container
+Next, enter the docker container and mount a location to copy the boot files out to
 
 ```
-docker run --rm -it peta
+docker run --rm -itv $PWD:/media peta
 ```
 
 The `submodules` folder is copied into the image. Each device will have its own submodule. Each submodule is linked to a specific hash or version in the device's repository. The [Zybo Z7-20](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20) device submodule was copied from [here](https://github.com/Digilent/Zybo-Z7/tree/master). This base project will be used to build our custom Petalinux image
 
-cd into your device's os folder
+cd into your device's os folder and turn into bucky
 
 ```
-cd submodules/Zybo-Z7/os/
+cd submodules/petalinux-zybo-z7-20/os/ && gosu bucky bash
 
 ```
 
@@ -61,4 +61,23 @@ do_install() {
              install -m 0655 ${S}/bs.bin ${D}/${bindir}
 }
 ```
-WIP
+
+Next, copy `bs.bin` into the files folder:
+
+```
+cp /media/bs.bin project-spec/meta-user/recipes-apps/uart/files/
+```
+
+run `vi project-spec/meta-user/recipes-apps/uart/files/uart` to make the startup script and make it look like this:
+
+```sh
+#!/bin/sh
+
+echo 0 > /sys/class/fpga_manager/fpga0/flags
+mkdir -p /lib/firmware
+cp /media/bs.bin /lib/firmware/
+echo bs.bin > /sys/class/fpga_manager/fpga0/firmware
+echo "Done programming!"
+```
+
+now we can build the boot files with `petalinux-build`
