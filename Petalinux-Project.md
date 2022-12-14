@@ -90,3 +90,5 @@ copy `BOOT.BIN`, `image.ub`, and `boot.scr` to your mounted volume. First, you n
 ```
 cd image/linx && cp BOOT.BIN image.ub boot.scr /media
 ```
+
+Now all that is left is to format a FAT-32 SD card with a single partition, and copy these three files onto it, and turn on your zybo! After you login over uart (ex. `sudo screen /dev/ttyUSB1 115200`) run `uart` and the fpga will flash!
