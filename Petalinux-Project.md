@@ -75,9 +75,18 @@ run `vi project-spec/meta-user/recipes-apps/uart/files/uart` to make the startup
 
 echo 0 > /sys/class/fpga_manager/fpga0/flags
 mkdir -p /lib/firmware
-cp /media/bs.bin /lib/firmware/
+cp /usr/bin/bs.bin /lib/firmware/
 echo bs.bin > /sys/class/fpga_manager/fpga0/firmware
-echo "Done programming!"
 ```
 
-now we can build the boot files with `petalinux-build`
+now we can build the boot files
+
+```
+petalinux-build
+petalinux-package --boot --u-boot
+```
+
+copy `BOOT.BIN`, `image.ub`, and `boot.scr` to your mounted volume. First, you need to type `exit` or `ctrl+d` to go back to root user.
+```
+cd image/linx && cp BOOT.BIN image.ub boot.scr /media
+```
