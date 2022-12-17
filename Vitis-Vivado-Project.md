@@ -14,7 +14,7 @@
 Next, we need to connect our board signals to the IP. Click on **Board** in the upper left next to **Sources**, **Design**, and **Signals**
 
 - Click on **System Clock** and drag it onto the Block Design. It should auto connect to the Clocking Wizard. After this is done, the old `diff_clock_rtl` pin will be unconnected. You should delete it by `right click -> Delete`
-- If your board has a system reset, you can connect it similarly. If not, you can use add a **Constant** IP in place of `reset_rtl`. Make sure to set the constant value to the opposite of the active polarity of the reset. (Ex. active low, constant is 1). Then, delete `reset_rtl`.
+- If your board has a system reset, you can connect it similarly. If not, you can use a **Constant** IP in place of `reset_rtl`. Make sure to set the constant value to the opposite of the active polarity of the reset. (Ex. active low, constant is 1). Then, delete `reset_rtl`.
 
 Next, we need to add the UART IP and LEDs
 
