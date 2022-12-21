@@ -1,5 +1,5 @@
 ## Setup
-- Create Project
+- Open Vivado and create project
 - Leave default of RTL Project (Do not specify sources)
 - Click on boards, then search (Ex. Zybo Z7-20)
 
