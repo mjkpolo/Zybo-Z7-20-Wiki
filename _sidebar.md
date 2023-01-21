@@ -1,1 +1,1 @@
-_sidebar
+Sidebar(_sidebar)
