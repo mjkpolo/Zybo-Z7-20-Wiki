@@ -9,5 +9,5 @@
 ## Table of Contents
 
 1. [FPGA Design, ELF for Microblaze, and bitstream generation](Vitis Vivado Project)
-2. [Petalinux uboot build](Petalinux Project)
+2. *DEPRECATED* [Petalinux uboot build](Petalinux Project)
 3. [Ethernet connection from Petalinux device to the host](Ethernet Connection To Petalinux)
