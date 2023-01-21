@@ -1,1 +1,1 @@
-Sidebar(_sidebar)
+[Sidebar](_sidebar)
