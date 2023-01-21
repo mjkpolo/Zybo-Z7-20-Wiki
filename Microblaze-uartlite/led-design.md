@@ -129,6 +129,10 @@ int UartLitePolledExample(u16 DeviceId)
 - Check the box **Copy elf files into project** (I don't believe it is necessary, but have not confirmed)
 - Under `PROGRAM AND DEBUG` again click **Generate Bitstream**
 
+### Congratulations!
+
+# *Deprecated:*
+
 ## Export Bitstream
 
 - Click `File -> Export -> Export Bitstream File...` (Ex. bs.bit) and try to export it to the Vivado project directory (may default Vitis)
@@ -141,8 +145,7 @@ write_cfgmem -force -format bin -interface smapx32 -disablebitswap -loadbit "up 
 This generates `bs.bin` which the FPGA manager in Petalinux can read
 
 
-### Congratulations!
 
-~Next, checkout my Petalinux tutorial to learn how to flash the bitstream using Linux~
+Next, checkout my Petalinux tutorial to learn how to flash the bitstream using Linux
 
 *In progress...*
