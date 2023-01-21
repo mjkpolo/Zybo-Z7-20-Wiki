@@ -39,7 +39,7 @@ Before we can generate a hardware configuration file for Vitis, we need to tie `
 
 Find the constraints, or XDC file for your board. Since I'm using [Zybo Z7-20](https://raw.githubusercontent.com/Digilent/digilent-xdc/master/Zybo-Z7-Master.xdc) I copy these lines into my empty file, and change the port to `tx_0` and `rx_0` then save!
 
-*You may need to switch tx and rx. In our case, we did when using a usb rs232 adapter*
+*You may need to switch tx and rx. In our case, we did when using an usb rs232 adapter*
 ```
 set_property -dict { PACKAGE_PIN P14   IOSTANDARD LVCMOS33     } [get_ports { tx_0 }]; #IO_L6P_T0_34 Sch=jd_p[2]                  
 set_property -dict { PACKAGE_PIN R14   IOSTANDARD LVCMOS33     } [get_ports { rx_0 }]; #IO_L6N_T0_VREF_34 Sch=jd_n[2]  
@@ -144,4 +144,5 @@ This generates `bs.bin` which the FPGA manager in Petalinux can read
 ### Congratulations!
 
 ~Next, checkout my Petalinux tutorial to learn how to flash the bitstream using Linux~
+
 *In progress...*
