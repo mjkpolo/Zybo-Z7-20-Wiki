@@ -191,7 +191,7 @@ Once this configuration is complete, turn the board on.
 **Common issues:**
 Ensure your `jumpers` are configured correctly to allow data from the `micro-usb port` but the **POWER** to be from the wall plug-in. Also, my demo needs the RS232 PMOD to be in the JE PMOD Header. 
 
-- Connect to two `Serial Port` sessions in Tera Term
+- Connect to two `Serial Port` sessions in **Tera Term** (I used Tera for my demo, but I'm sure other programs will work)
 1. Connect to whatever COM is the RS232 and change the `BAUD `to **115200 **under `Setup`.
 2. Connect to whatever COM is the cable that plugs into the micro-usb on the board and change the `BAUD `to **115200 **under `Setup`.
 
