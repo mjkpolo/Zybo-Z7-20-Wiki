@@ -136,9 +136,21 @@ Make sure that you use the correct baudrates. The Zybo uses 115200 and the Uartl
 sudo su
 echo "Not in qemu anymore :D" > /dev/ttyUL1
 ```
-#### Congratulations!
+> WIP
 
-### Submodule
+### Manual
+Make sure to export your hardware description file (ex. `~/project_1/design_1_wrapper.xsa`)
+```
+petalinux-create -t project -n newos --template zynq && cd newos
+petalinux-config --get-hw-description /mnt/project_1/design_1_wrapper.xsa
+```
+once the menu pops up, go to `Yocto Settings  --->` then make sure `Enable Network sstate feeds` is ***de*selected**
+
+Now we need to enable some kernel modules. Run:
+```
+petalinux-config -c kernel
+```
+
 TODO
 ### Manual
 TODO
