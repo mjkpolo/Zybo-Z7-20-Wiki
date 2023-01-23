@@ -127,6 +127,17 @@ rm -f BOOT.BIN boot.scr image.ub rootfs.tar.gz
 ```
 Your SD card can now be removed from your computer, and inserted into the Zybo. Make sure your jumper configuration on the Zybo corresponds to SD card, not JTAG or QSPI.
 
+Insert the RS232 PMOD into the top row of header JD.
+
+> TODO find better way to identify which tty is which device
+
+Make sure that you use the correct baudrates. The Zybo uses 115200 and the Uartlite uses 9600. Once you've opened a serial terminal to both the rs232 adapter and the Zybo, try echoing a message from the Zybo:
+```
+sudo su
+echo "Not in qemu anymore :D" > /dev/ttyUL1
+```
+#### Congratulations!
+
 ### Submodule
 TODO
 ### Manual
