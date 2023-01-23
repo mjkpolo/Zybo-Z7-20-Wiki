@@ -43,11 +43,7 @@ Now, you can test out the character devices. This will echo back to you over the
 sudo su
 echo 'Hello SSEC!' > /dev/ttyPS0
 ```
-Uartlite will not function properly in QEMU, but you can see it at `/dev/ttyUL1`. To test it, let's format an SD card and build images. To do this, run:
-```
-petalinux-build && petalinux-package --boot --fsbl images/linux/zynq_fsbl.elf --fpga project-spec/hw-description/design_1_wrapper.bit --uboot --force
-```
-While that's building, let's format an SD card (on Linux)
+Uartlite will not function properly in QEMU, but you can see it at `/dev/ttyUL1`. To test it, let's format an SD card.
 
 First, run `lsblk` and find your SD card. If you're struggling to do this, run `lsblk` once before inserting your SD card, and once after to see which label it was assigned.
 
@@ -102,7 +98,6 @@ Calling ioctl() to re-read partition table.
 Syncing disks.
 ```
 Now that partitions are made, we need to make the filesystem:
-
 ```
 sudo mkfs.vfat -F32 /dev/sdb1
 sudo mkfs.ext4 /dev/sdb2
@@ -112,8 +107,26 @@ Let's make mount points for the drive and mount the drive:
 sudo mkdir /mnt/rootfs /mnt/BOOT
 sudo mount /dev/sdb1 /mnt/BOOT
 sudo mount /dev/sdb2 /mnt/rootfs
-``
+```
+Return to your docker container. If you are still `bucky`, exit back to root and run this:
+```
+cd newos/pre-built/linux/images/
+cp BOOT.BIN boot.scr image.ub rootfs.tar.gz /mnt
+```
+Now your files are in your home directory. You can suspend your container with `Ctrl+P Ctrl+Q` and attach later with `docker attach --latest` or just exit out.
+
+Let's copy the files to the SD card:
+```
+cd
+sudo cp BOOT.BIN boot.scr image.ub /mnt/BOOT
+sudo tar -xvf rootfs.tar.gz -C /mnt/rootfs
+sync
+sudo umount /dev/sdb1
+sudo umount /dev/sdb2
+```
+Your SD card can now be removed from your computer, and inserted into the Zybo. Make sure your jumper configuration on the Zybo corresponds to SD card, not JTAG or QSPI.
 
 ### Submodule
-
+TODO
 ### Manual
+TODO
