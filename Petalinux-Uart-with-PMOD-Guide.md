@@ -150,6 +150,12 @@ Now we need to enable some kernel modules. Run:
 ```
 petalinux-config -c kernel
 ```
+You can search for modules with `/`. Enable `SERIAL_UARTLITE` and `SERIAL_UARTLITE_CONSOLE` by selecting it with `space` until it's an asterisk, which means it's built into the kernel. `M` means module which needs to be loaded.
+
+Now we can build the images and package them for the SD card.
+```
+petalinux-build && petalinux-package --boot --fsbl images/linux/zynq_fsbl.elf --fpga project-spec/hw-description/design_1_wrapper.bit --uboot --force
+```
 
 TODO
 ### Manual
