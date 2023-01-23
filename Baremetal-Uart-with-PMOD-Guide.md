@@ -23,7 +23,7 @@ We will now add a few more IP Blocks for LED, Switch, and Button Control.
 - Now that all three GPIO Blocks are added in our Design, once again run Connection Automation on all blocks.
 
 After clicking on Regenerate Layout, your design should look like this:
-(INSERT PICTURE HERE)
+![WikiPmodDiagram](uploads/08ab47d63bd758efe9e9b7e402abcc5b/WikiPmodDiagram.jpg)
 
 ## Constraints and Assignments
 
@@ -184,7 +184,7 @@ Back in **Explorer**, right-click on the application and `Build Project`.
 
 ## Connecting Board and Tera Term
 For this demo, I was successful with this attached configuration for the Board below:
-(INSERT BOARD PICTURE HERE)
+![WikiPmodBoard](uploads/20bbb23cc7165379959b25716280271f/WikiPmodBoard.jpeg)
 
 Once this configuration is complete, turn the board on.
 
@@ -208,6 +208,6 @@ Begin sending data to the `RS232 COM Terminal` by pressing the **rightmost butto
 Try flipping the **right most switch**, now the terminal should be repeatedly printing `Test`.
 
 Finally, try pressing the **second rightmost button**, the Terminals will tell you that it has stopped sending data to the `RS232 COM terminal`.
-
+![WikiPmodTerminal](uploads/307d9ff042addd7ccce1ec923c5a3c39/WikiPmodTerminal.jpg)
 Congratulations! That is the end of this walkthrough, below I have noted some common errors or mistakes I have made when getting this to work successfully.
 ### Notes
