@@ -38,7 +38,7 @@ At this stage, the **XDC** file should be viewable under the **Constraints** tab
 1. Both lines under `Clock Signal`
 2. All four lines under `Switches`, `Buttons`, and `LEDs`
 3. Under Pmod Header **JE**, `PIN J15` and `PIN H15`
-4. On the two JE lines, make sure they look like this:
+4. On the two **JE** lines, make sure they look like this:
 ```
 #set_property -dict { PACKAGE_PIN J15   IOSTANDARD LVCMOS33 } [get_ports { rx_0 }]; #IO_25_35 Sch=je[3]                          
 #set_property -dict { PACKAGE_PIN H15   IOSTANDARD LVCMOS33 } [get_ports { tx_0 }]; #IO_L19P_T3_35 Sch=je[4]
