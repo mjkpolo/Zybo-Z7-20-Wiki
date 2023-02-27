@@ -73,4 +73,5 @@ At this stage, the **XDC** file should be viewable under the **Constraints** tab
 - Note that the info and buffer is **cleared** after the **first** call to print. 
 ### Button 4: Dynamic Commands
 - This state utilizes multiple **functions** to vary the rotation of the controller. 
-- These fun
+- These functions include a linearly increasing rotation, a exponentially increasing rotation, and a randomly sampling rotation. 
+- To exit, use `Button 1`
