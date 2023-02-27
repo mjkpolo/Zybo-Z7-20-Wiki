@@ -75,3 +75,6 @@ At this stage, the **XDC** file should be viewable under the **Constraints** tab
 - This state utilizes multiple **functions** to vary the rotation of the controller. 
 - These functions include a **linearly** increasing rotation, a **exponentially** increasing rotation, and a **randomly** sampling rotation. 
 - To exit, use `Button 1`
+
+
+
