@@ -66,14 +66,6 @@ With `Vitis` launched, we will now implement the software that will drive what w
 Add this code to `main.c` and save:
 
 ```
-
-/******************************************************************************/
-/*                                                                            */
-/* main.c -- PmodAD1 Example Project                                          */
-/*                                                                            */
-/******************************************************************************/
-/* Author: Arthur Brown                                                       */
-/* Copyright 2017, Digilent Inc.                                              */
 /******************************************************************************/
 /* Module Description:                                                        */
 /*                                                                            */
@@ -88,13 +80,6 @@ Add this code to `main.c` and save:
 /* typically 9600 or 115200 Baud.                                             */
 /*                                                                            */
 /******************************************************************************/
-/* Revision History:                                                          */
-/*                                                                            */
-/*    08/15/2017(ArtVVB):   Created                                           */
-/*    02/10/2018(atangzwj): Validated for Vivado 2017.4                       */
-/*                                                                            */
-/******************************************************************************/
-
 #include <stdio.h>
 #include "PmodAD1.h"
 #include "sleep.h"
