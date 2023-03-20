@@ -181,3 +181,4 @@ void DisableCaches() {
 -Save this change for all instances of the `PmodAD1.c` source file
 - The reasoning behind this change is because the original conversion logic is actually incorrect (at least for our application), they originally mask the first 12 bits (Bits 11:0) of each 16bit chunk in the 32bit register that contains the data for both A1 and A0 inputs. By doing this, the count actually overflows halfway from 0-Reference Voltage (RV = 3.3V for us) and then shows that the voltage read is 0 at 1.65. To solve this issue, we shifted the "12-bit Window" we are looking at from 11:0 to 12:1, this was done with a Mask of the 12:1 bits, and a bit shift right to eliminate the 0th bit position in our value. 
 
+## Running the program
