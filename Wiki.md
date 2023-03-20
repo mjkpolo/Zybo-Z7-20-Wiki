@@ -13,3 +13,4 @@
 3. [ssh to Petalinux device with a direct Ethernet connection](Ethernet Connection To Petalinux)
 4. [Baremetal Zynq with Uartlite](Baremetal Uart with PMOD Guide)
 5. [Baremetal Zynq with Uartlite Mirror Controller](Baremetal Zybo Uart with Mirror Controller Guide)
+6. [Baremetal Zynq ADC](Baremetal Zybo ADC PMOD Guide)
