@@ -16,7 +16,8 @@
 - Go to the Board Window on the left, and right-click **JA** and select **Connect Board Component**. 
 - Here ensure `Pmod_out` is highlighted, and click OK. You should now see **ja** as the external connection for the AD1 Block in our Diagram.
 - After clicking Regenerate Layout, your design should look like this:
-- INSERT PICTURE OF DIAGRAM HERE
+ 
+![PMODAD1Diagram](uploads/eac81cec4114569cdd492c5b6f78cc63/PMODAD1Diagram.PNG)
 
 ## Constraints and Assignments
 
@@ -181,4 +182,17 @@ void DisableCaches() {
 -Save this change for all instances of the `PmodAD1.c` source file
 - The reasoning behind this change is because the original conversion logic is actually incorrect (at least for our application), they originally mask the first 12 bits (Bits 11:0) of each 16bit chunk in the 32bit register that contains the data for both A1 and A0 inputs. By doing this, the count actually overflows halfway from 0-Reference Voltage (RV = 3.3V for us) and then shows that the voltage read is 0 at 1.65. To solve this issue, we shifted the "12-bit Window" we are looking at from 11:0 to 12:1, this was done with a Mask of the 12:1 bits, and a bit shift right to eliminate the 0th bit position in our value. 
 
+## Board Configuration
+- For this demo, I used the following board setup with a potentiometer:
+
+INSERT BOARD PICTURES HERE
+
+- I used a potentiometer hooked up to the 3.3V output of a different PMOD Header, and I varied the resistance and watched the Voltage Read from the Analog Input I was plugged into on the AD1. I also used a Multimeter to confirm the accuracy and validity of the demo relative to the actual multimeter value.
+
 ## Running the program
+
+Back in **Explorer**, right-click on the application and `Build Project`.
+
+Connect through Tera Term, and make sure the **BAUD RATE** is set to `115200`. 
+
+Finally, go back to Viti and right-click on the application for this demo and select `Program Device`. Once this is finished, right-click on the application again and choose `Run As`. 
