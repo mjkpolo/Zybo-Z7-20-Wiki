@@ -185,7 +185,8 @@ void DisableCaches() {
 ## Board Configuration
 - For this demo, I used the following board setup with a potentiometer:
 
-INSERT BOARD PICTURES HERE
+![image](uploads/509b03d2dee542df03ea866b6508996f/image.png)
+![board0](uploads/580957ec5987ace7910a02041f597310/board0.jpg)
 
 - I used a potentiometer hooked up to the 3.3V output of a different PMOD Header, and I varied the resistance and watched the Voltage Read from the Analog Input I was plugged into on the AD1. I also used a Multimeter to confirm the accuracy and validity of the demo relative to the actual multimeter value.
 
@@ -196,3 +197,5 @@ Back in **Explorer**, right-click on the application and `Build Project`.
 Connect through Tera Term, and make sure the **BAUD RATE** is set to `115200`. 
 
 Finally, go back to Viti and right-click on the application for this demo and select `Program Device`. Once this is finished, right-click on the application again and choose `Run As`. 
+
+You should now see in Tera Term print statements showing you the Voltage being read at each of the two data inputs on the AD1. After our change to the source code, the readings should be at around 0.1V of a difference to what a multimeter would tell you.
