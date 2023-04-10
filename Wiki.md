@@ -11,7 +11,8 @@
 # Baremetal
 1. [Baremetal Zynq with Uartlite](Baremetal Uart with PMOD Guide)
 2. [Baremetal Zynq ADC](Baremetal Zybo ADC PMOD Guide)
-3. [Baremetal Zynq with Uartlite Mirror Controller](Baremetal Zybo Uart with Mirror Controller Guide)
+3. [Baremetal PWM LED Guide](Baremetal PWM LED Guide) 
+4. [Baremetal Zynq with Uartlite Mirror Controller](Baremetal Zybo Uart with Mirror Controller Guide)
 
 # Petalinux
 1. [Uartlize and Led Microblaze Example](uarlite & led microblaze design)
