@@ -8,9 +8,12 @@
 
 ## Table of Contents
 
+# Baremetal
+1. [Baremetal Zynq with Uartlite](Baremetal Uart with PMOD Guide)
+2. [Baremetal Zynq ADC](Baremetal Zybo ADC PMOD Guide)
+3. [Baremetal Zynq with Uartlite Mirror Controller](Baremetal Zybo Uart with Mirror Controller Guide)
+
+# Petalinux
 1. [Uartlize and Led Microblaze Example](uarlite & led microblaze design)
 2. *DEPRECATED* [Petalinux uboot build](Petalinux Project)
 3. [ssh to Petalinux device with a direct Ethernet connection](Ethernet Connection To Petalinux)
-4. [Baremetal Zynq with Uartlite](Baremetal Uart with PMOD Guide)
-5. [Baremetal Zynq with Uartlite Mirror Controller](Baremetal Zybo Uart with Mirror Controller Guide)
-6. [Baremetal Zynq ADC](Baremetal Zybo ADC PMOD Guide)
