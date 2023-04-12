@@ -101,8 +101,12 @@ int main(){
 
 ```
 - This code will be communicating to the onboard PWM drivers that come with the Pmod, and will dim up and dim down the led's hooked up to the Pmod. 
-
+- **CAUTION** Don't go any much higher than ~3.3V on your power supply, we found the best range for seeing the dimming and brightening was 2.7-3.35V
 ### Attached Pictures
 
 - Here's some attaches of the demo:
-- 
+![image](uploads/cc51494c2b2b205fc2a506590a6f252c/image.png)
+
+
+![image](uploads/13c685833f98911bca7a296bd7cbf11a/image.png)
+
