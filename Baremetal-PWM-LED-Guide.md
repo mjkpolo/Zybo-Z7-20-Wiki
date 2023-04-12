@@ -100,3 +100,9 @@ int main(){
 }
 
 ```
+- This code will be communicating to the onboard PWM drivers that come with the Pmod, and will dim up and dim down the led's hooked up to the Pmod. 
+
+### Attached Pictures
+
+- Here's some attaches of the demo:
+- 
