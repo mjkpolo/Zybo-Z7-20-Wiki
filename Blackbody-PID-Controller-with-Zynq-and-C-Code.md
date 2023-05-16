@@ -53,5 +53,7 @@ set_property -dict { PACKAGE_PIN Y17   IOSTANDARD LVCMOS33 } [get_ports { je_pin
 
 [pid_example.cpp](uploads/a5e8056293618abcd16d3a5bc3ba9348/pid_example.cpp)
 
-**NOTE: This Driver was edited to fix an issue that we are currently debugging with Digilient's Original Driver, the ADC is not reading correctly without this temporary edit, your mileage may vary as this is an ongoing problem with the drivers**
+**NOTE: The PmodAD1.c Driver was edited to fix an issue that we are currently debugging with Digilient's Original Driver, the ADC is not reading correctly without this temporary edit, your mileage may vary as this is an ongoing problem with the drivers**
+
+
 [PmodAD1.c](uploads/12e3bab2d753d21f38b6310dda4f28fc/PmodAD1.c)
