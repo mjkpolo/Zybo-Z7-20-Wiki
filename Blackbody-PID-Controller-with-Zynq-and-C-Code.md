@@ -2,7 +2,10 @@
 
 This page is to save and provide the resources and progress made on using a Zynq Processing block for the Zybo Board along with the C code developed for the board. Please be aware this was not a completed Experiment, as we moved away from the Zynq design to the more ideal design that does not need to use the Zynq in the design. This is meant as a starting place/where we left off, if one is considering the Zynq Approach.
 
-## Block Design
+## **Block Design**
+
+Below is a picture of the Block Design created (Note you will have to manually make external the PWM outputs using the editor):
+
 Below is the Constraints that were edited:
 ```
 ##Pmod Header JC                                                                                                                  
@@ -37,7 +40,6 @@ set_property -dict { PACKAGE_PIN U17   IOSTANDARD LVCMOS33 } [get_ports { je_pin
 set_property -dict { PACKAGE_PIN T17   IOSTANDARD LVCMOS33 } [get_ports { je_pin9_io }]; #IO_L20P_T3_34 Sch=je[9]                     
 set_property -dict { PACKAGE_PIN Y17   IOSTANDARD LVCMOS33 } [get_ports { je_pin10_io }]; #IO_L7N_T1_34 Sch=je[10]                    
 ```
-Below is a picture of the Block Design created (Note you will have to manually make external the PWM outputs using the editor):
 
-## Code Developed and Utilized
+## **Code Developed and Utilized**
 
