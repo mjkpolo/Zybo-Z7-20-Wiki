@@ -4,7 +4,7 @@ This page is to save and provide the resources and progress made on using a Zynq
 
 ## Block Design
 Below is the Constraints that were edited:
-'''
+```
 ##Pmod Header JC                                                                                                                  
 set_property -dict { PACKAGE_PIN V15   IOSTANDARD LVCMOS33     } [get_ports { pwm_0[0] }]; #IO_L10P_T1_34 Sch=jc_p[1]   			 
 set_property -dict { PACKAGE_PIN W15   IOSTANDARD LVCMOS33     } [get_ports { pwm_0[1] }]; #IO_L10N_T1_34 Sch=jc_n[1]		     
@@ -36,7 +36,7 @@ set_property -dict { PACKAGE_PIN V13   IOSTANDARD LVCMOS33 } [get_ports { je_pin
 set_property -dict { PACKAGE_PIN U17   IOSTANDARD LVCMOS33 } [get_ports { je_pin8_io }]; #IO_L9N_T1_DQS_34 Sch=je[8]                  
 set_property -dict { PACKAGE_PIN T17   IOSTANDARD LVCMOS33 } [get_ports { je_pin9_io }]; #IO_L20P_T3_34 Sch=je[9]                     
 set_property -dict { PACKAGE_PIN Y17   IOSTANDARD LVCMOS33 } [get_ports { je_pin10_io }]; #IO_L7N_T1_34 Sch=je[10]                    
-'''
+```
 Below is a picture of the Block Design created (Note you will have to manually make external the PWM outputs using the editor):
 
 ## Code Developed and Utilized
