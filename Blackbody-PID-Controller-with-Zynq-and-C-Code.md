@@ -5,7 +5,7 @@ This page is to save and provide the resources and progress made on using a Zynq
 ## **Block Design**
 
 Below is a picture of the Block Design created (Note you will have to manually make external the PWM outputs using the editor):
-
+![Screenshot__23_](uploads/ba27ed0aae7b60376a2db5c25e5275f0/Screenshot__23_.png)
 Below is the Constraints that were edited:
 ```
 ##Pmod Header JC                                                                                                                  
