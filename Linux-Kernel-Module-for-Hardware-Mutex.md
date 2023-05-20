@@ -30,7 +30,7 @@ set_property -dict { PACKAGE_PIN R14   IOSTANDARD LVCMOS33     } [get_ports { tx
 
 We need to add an elf file to the Microblaze's block memory so that messages copied into the shared memory buffer can be sent over UART and cleared by the Microblaze. To do this, we will create a Project in Vitis, compile a program, and "associate the elf file" in the block design.
 
-To create the project you must import the hardware description file. First, click `Generate Bitstream`, then go to `File -> Export -> Export Hardware...` and select include bitstream.
+To create the project you must import the hardware description file. After generating a wrapper for the board design, click `Generate Bitstream`, then go to `File -> Export -> Export Hardware...` and select include bitstream.
 
 Copy [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/sw/main.c) file into your src folder of your Vitis project. Build the project, and inside the `Debug` folder, you should have `<project name>.elf`. Go back to your Vivado project, open the block design, and right click on the Microblaze IP. Go to `Associate ELF Files...` and click the three dots by `Design Sources / design_1 / microblaze_0` to select the elf file. Now, export the `.xsa` file again, and we will use it in the Petalinux build.
 
