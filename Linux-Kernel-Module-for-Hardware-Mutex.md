@@ -72,16 +72,12 @@ create another module in the same way, and copy [my](https://gitlab.ssec.wisc.ed
 
 this module will create a file called `/dev/<mutex module name>_dev`. Here is an example of writing a series of commands using the append option, since in this demo, the microblaze only clears the buffer every 1 second for testing writing multiple commands to the buffer.
 
-The following script will rotate the mirror controller 360 degrees after calibrating it with the stored sequence `1XR2`
+The following script demonstrates successful delivery of all messages and will rotate the mirror controller 360 degrees after calibrating it with the stored sequence `1XR2`
 
 ```bash
 printf '1XR2' >> /dev/<mutex module name>_dev
-sleep .2
 printf '1D36000' >> /dev/<mutex module name>_dev
-sleep .2
 printf '1G' >> /dev/<mutex module name>_dev
-sleep .2
 printf '1D0' >> /dev/<mutex module name>_dev
-sleep .2
 printf '1G' >> /dev/<mutex module name>_dev
 ```
