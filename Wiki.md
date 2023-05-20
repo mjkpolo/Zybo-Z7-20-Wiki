@@ -15,6 +15,8 @@
 4. [Baremetal Zynq with Uartlite Mirror Controller](Baremetal Zybo Uart with Mirror Controller Guide)
 
 # Petalinux
-1. *DEPRECATED* [Uartlize and Led Microblaze Example](uarlite & led microblaze design)
-2. *DEPRECATED* [Petalinux uboot build](Petalinux Project)
-3. [ssh to Petalinux device with a direct Ethernet connection](Ethernet Connection To Petalinux)
+1. [Shared Memory and Mutex Linux Kernel Module Guide](Linux Kernel Module for Hardware Mutex)
+2. [ssh to Petalinux device with a direct Ethernet connection](Ethernet Connection To Petalinux)
+3. *DEPRECATED* [Uartlize and Led Microblaze Example](uarlite & led microblaze design)
+4. *DEPRECATED* [Petalinux uboot build](Petalinux Project)
+
