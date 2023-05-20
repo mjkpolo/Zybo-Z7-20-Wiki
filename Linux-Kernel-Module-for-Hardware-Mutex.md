@@ -8,5 +8,8 @@
 to and from control and status registers).
 - AXI4-Stream—For high-speed streaming data.
 
-## Board Design
+## Block Design
 
+![image](uploads/260be8f8efc7144a52a876ddf85c0179/image.png)
+
+To recreate this design, you can run this tcl script by opening Vivado and going to `Tools -> Run Tcl Script...`
