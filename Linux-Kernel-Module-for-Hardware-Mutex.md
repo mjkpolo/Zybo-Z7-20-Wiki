@@ -10,6 +10,30 @@ to and from control and status registers).
 
 ## Block Design
 
+Our block design's purpose is to create a shared memory window between a Microblaze and the Zynq. We will use a BRAM controller and generator to create the physical registers, and connect both processors to the slave AXI interconnect ports. One of the master ports will be for a Uartlite IP for sending messages over the RS232 Pmod header to either the mirror controller, or a USB adapter for testing purposes. Another port is for the Mutex used to synchronize the Zynq and Microblaze. The final port is LEDs for debug purposes, and will blink an "SOS" signal when the Microblaze encounters an error.
+
 ![image](uploads/260be8f8efc7144a52a876ddf85c0179/image.png)
 
-To recreate this design, you can run this tcl script by opening Vivado and going to `Tools -> Run Tcl Script...`
+To recreate this design, you can run [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/hw/design_1.tcl) tcl script by opening Vivado and going to `Tools -> Run Tcl Script...`
+
+In addition to the Block Design above, a constraints file is needed for our custom external pins of the Uartlite. To add a constraints file, go to the plus button `Add Sources -> Add or create constraints` and create a new file. Paste these lines to tie the RX and TX pins to the Pmod header
+```
+set_property -dict { PACKAGE_PIN P14   IOSTANDARD LVCMOS33     } [get_ports { rx_0 }]; #IO_L6P_T0_34 Sch=jd_p[2]                  
+set_property -dict { PACKAGE_PIN R14   IOSTANDARD LVCMOS33     } [get_ports { tx_0 }]; #IO_L6N_T0_VREF_34 Sch=jd_n[2]
+```
+
+## Microblaze Code
+
+We need to add an elf file to the Microblaze's block memory so that messages copied into the shared memory buffer. To do this, we will create a Project in Vitis, compile a program, and "associate the elf file" in the block design.
+
+To create the project you must import the hardware description file. Either generate a `.xsa` file with the block design above, or just use [this]() `.xsa` file.
+
+Copy [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/sw/main.c) file into your src folder of your Vitis project.
+
+
+
+# Petalinux
+
+Petalinux is a wrapper around other tools like Yocto and Bitbake design by Xilinx to work with 
+
+## Setup
