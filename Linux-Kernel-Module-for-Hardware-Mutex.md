@@ -28,16 +28,20 @@ set_property -dict { PACKAGE_PIN R14   IOSTANDARD LVCMOS33     } [get_ports { tx
 
 ## Microblaze Code
 
-We need to add an elf file to the Microblaze's block memory so that messages copied into the shared memory buffer. To do this, we will create a Project in Vitis, compile a program, and "associate the elf file" in the block design.
+We need to add an elf file to the Microblaze's block memory so that messages copied into the shared memory buffer can be sent over UART and cleared by the Microblaze. To do this, we will create a Project in Vitis, compile a program, and "associate the elf file" in the block design.
 
 To create the project you must import the hardware description file. To generate one, go to `File -> Export -> Export Hardware...`
 
 Copy [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/sw/main.c) file into your src folder of your Vitis project. Build the project, and inside the `Debug` folder, you should have `<project name>.elf`. Go back to your Vivado project, open the block design, and right click on the Microblaze IP. Go to `Associate ELF Files...` and click the three dots by `Design Sources / design_1 / microblaze_0` to select the elf file. Now, export the `.xsa` file again, and we will use it in the Petalinux build.
 
-
-
 # Petalinux
 
-Petalinux is a wrapper around other tools like Yocto and Bitbake design by Xilinx to work with 
+Petalinux is a wrapper around other tools like Yocto and Bitbake design by Xilinx to work with Vivado XSA files which describe the system.
+
+> This example is assuming you've created a development container and launched it with [this](https://gitlab.ssec.wisc.edu/mkurzynski/qemu-zc706-petalinux/-/blob/master/go.sh) script which mounts your home directory to `/mnt` and uses a volume for storage so that containers are all temporary and deleted upon shutdown.
+
+To create a Petalinux project, run `petalinux-create -t project --template zynq -n <project name>`.
+
+To import the hardware specification, run `petalinux-config --get-hw-description /mnt/<Vivado project name>/design_1_wrapper.xsa`
 
 ## Setup
