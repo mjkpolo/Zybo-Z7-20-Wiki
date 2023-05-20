@@ -48,9 +48,9 @@ To import the hardware specification, run `petalinux-config --get-hw-description
 
 First go to `Image Packaging Configuration ---> Root Filesystem type` and change it to `EXT4`. Next go to `Yocto Settings ---> Enable Network sstate feeds` and deselect it.
 
-## Module creation
+## Hardware Spinlock Module
 
-We will use two modules for sending messages to the Microblaze. The first module we will add will be a hardware spinlock to control the Mutex.
+We will use two modules for sending messages to the Microblaze. The first module we will add will be a [hardware spinlock](https://docs.kernel.org/locking/hwspinlock.html) to control the Mutex.
 
 To create a module, run `petalinux-create -t modules -n <mutex module name>` and cd to `./project-spec/meta-user/recipes-modules/<mutex module name>/files/`
 
@@ -59,3 +59,11 @@ The module I wrote is based on [this](https://git.kernel.org/pub/scm/linux/kerne
 Copy [my module](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofmutex/files/ofmutex.c) to the file `<mutex module name>.c`, and add [hwspinlock_internal.h](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/hwspinlock/hwspinlock_internal.h) as a new file.
 
 Since we added the header file, cd back one directory and change the contents of `<mutex module name>.bb` to [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofmutex/ofmutex.bb) so that it is included with the module.
+
+To make sure this compiles, run `petalinux-build -c <mutex module name>`. This will take a long time the first time, and will be very short after since the project is saved inside the volume.
+
+## Block Memory Character Device module
+
+Now that we've added support for the Mutex IP, let's create a module for copying to block memory using the generated template provided by Petalinux. Since it would be cool to use bash or some scripting language like python to copy to block memory, let's implement the module as a character device so that we can treat it like a file and write to it.
+
+Here is a minimal example of [registering a character device](https://github.com/cirosantilli/linux-kernel-module-cheat/blob/master/kernel_modules/character_device_create.c) and an explanation of [character devices and file operations](https://linux-kernel-labs.github.io/refs/heads/master/labs/device_drivers.html)
