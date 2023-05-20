@@ -86,7 +86,9 @@ printf '1G' >> $FILE
 
 ## Building and flashing SD card
 
-To build the project and the necessary images to boot from an SD card, run `petalinux-build && petalinux-package --boot --fsbl images/linux/zynq_fsbl.elf --fpga project-spec/hw-description/design_1_wrapper.bit --uboot --force`. We will use `BOOT.BIN`, `boot.scr`, `rootfs.tar.gz`, and `image.ub` so exit the container, and go to the `peta-vol` volume symlink and copy those file from `<project name>/images/linux`.
+To build the project and the necessary images to boot from an SD card, run `petalinux-build && petalinux-package --boot --fsbl images/linux/zynq_fsbl.elf --fpga project-spec/hw-description/design_1_wrapper.bit --uboot --force`.
+
+We will use `BOOT.BIN`, `boot.scr`, `rootfs.tar.gz`, and `image.ub` so exit the container, and go to the `peta-vol` volume symlink and copy those file from `<project name>/images/linux`.
 
 This is an example script for copying the files to the SD card after you have [formatted it appropriately](https://docs.xilinx.com/r/2022.2-English/ug1144-petalinux-tools-reference-guide/Partitioning-and-Formatting-an-SD-Card).
 
