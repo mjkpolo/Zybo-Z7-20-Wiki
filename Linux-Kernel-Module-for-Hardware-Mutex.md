@@ -67,3 +67,21 @@ To make sure this compiles, run `petalinux-build -c <mutex module name>`. This w
 Now that we've added support for the Mutex IP, let's create a module for copying to block memory using the generated template provided by Petalinux. Since it would be cool to use bash or some scripting language like python to copy to block memory, let's implement the module as a character device so that we can treat it like a file and write to it.
 
 Here is a minimal example of [registering a character device](https://github.com/cirosantilli/linux-kernel-module-cheat/blob/master/kernel_modules/character_device_create.c) and an explanation of [read, write, open, registration, and container_of](https://linux-kernel-labs.github.io/refs/heads/master/labs/device_drivers.html#implementation-of-operations)
+
+create another module in the same way, and copy [my](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofblockmem/files/ofblockmem.c) module to <bmem module name>.c in the `files` folder.
+
+this module will create a file called `/dev/<mutex module name>_dev`. Here is an example of writing a series of commands using the append option, since in this demo, the microblaze only clears the buffer every 1 second for testing writing multiple commands to the buffer.
+
+The following script will rotate the mirror controller 360 degrees after calibrating it with the stored sequence `1XR2`
+
+```bash
+printf '1XR2' >> /dev/<mutex module name>_dev
+sleep .2
+printf '1D36000' >> /dev/<mutex module name>_dev
+sleep .2
+printf '1G' >> /dev/<mutex module name>_dev
+sleep .2
+printf '1D0' >> /dev/<mutex module name>_dev
+sleep .2
+printf '1G' >> /dev/<mutex module name>_dev
+```
