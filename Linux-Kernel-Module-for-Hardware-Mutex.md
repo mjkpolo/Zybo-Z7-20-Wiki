@@ -8,9 +8,9 @@
 to and from control and status registers).
 - AXI4-Stream—For high-speed streaming data.
 
-*To skip manual Block Design and Microblaze setup, use [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/hw/design_1_wrapper.xsa) `.xsa` file for the Petalinux part.*
+*To skip Block Design and Microblaze setup, use [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/hw/design_1_wrapper.xsa) `.xsa` file for the Petalinux part.*
 
-*To skip the module creation, you can use [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/tree/BlockMemMutex/os) folder as your base Petalinux project.*
+*To skip the module creation and Block Design, you can use [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/tree/BlockMemMutex/os) folder as your base Petalinux project.*
 
 ## Block Design
 
@@ -40,8 +40,22 @@ Petalinux is a wrapper around other tools like Yocto and Bitbake design by Xilin
 
 > This example is assuming you've created a development container and launched it with [this](https://gitlab.ssec.wisc.edu/mkurzynski/qemu-zc706-petalinux/-/blob/master/go.sh) script which mounts your home directory to `/mnt` and uses a volume for storage so that containers are all temporary and deleted upon shutdown.
 
+## Setup
+
 To create a Petalinux project, run `petalinux-create -t project --template zynq -n <project name>`.
 
-To import the hardware specification, run `petalinux-config --get-hw-description /mnt/<Vivado project name>/design_1_wrapper.xsa`
+To import the hardware specification, run `petalinux-config --get-hw-description /mnt/<Vivado project name>/design_1_wrapper.xsa`. This will launch a menuconfig *(Your terminal window must be large enough, or it will fail)*. We will change two options.
 
-## Setup
+First go to `Image Packaging Configuration ---> Root Filesystem type` and change it to `EXT4`. Next go to `Yocto Settings ---> Enable Network sstate feeds` and deselect it.
+
+## Module creation
+
+We will use two modules for sending messages to the Microblaze. The first module we will add will be a hardware spinlock to control the Mutex.
+
+To create a module, run `petalinux-create -t modules -n <mutex module name>` and cd to `./project-spec/meta-user/recipes-modules/<mutex module name>/files/`
+
+The module I wrote is based on [this](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/hwspinlock/stm32_hwspinlock.c) module, and is mostly a copy of it. The lock functions were taken from the [Xilinx embeddedsw repo](https://github.com/Xilinx/embeddedsw/blob/master/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c)
+
+Copy [my module](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofmutex/files/ofmutex.c) to the file `<mutex module name>.c`, and add [hwspinlock_internal.h](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/hwspinlock/hwspinlock_internal.h) as a new file.
+
+Since we added the header file, cd back one directory and change the contents of `<mutex module name>.bb` to [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofmutex/ofmutex.bb) so that it is included with the module.
