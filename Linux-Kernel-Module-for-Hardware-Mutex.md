@@ -83,3 +83,34 @@ printf '1G' >> $FILE
 printf '1D0' >> $FILE
 printf '1G' >> $FILE
 ```
+
+## Building and flashing SD card
+
+To build the project and the necessary images to boot from an SD card, run `petalinux-build && petalinux-package --boot --fsbl images/linux/zynq_fsbl.elf --fpga project-spec/hw-description/design_1_wrapper.bit --uboot --force` and copy `BOOT.BIN`, `boot.scr`, `rootfs.tar.gz`, and `image.ub`.
+
+This is an example script for copying the files to the SD card after you have formatted it appropriately.
+
+```bash
+#!/bin/bash -e
+
+ROOTFS=/mnt/rootfs
+BOOT=/mnt/BOOT
+LOC=/home/<username>/<images location>
+P1=/dev/<partition 1>
+P2=/dev/<partition 2>
+
+sudo su << EOF
+[ -d $ROOTFS ] || mkdir $ROOTFS
+[ -d $BOOT ] || mkdir $BOOT
+umount $P1
+umount $P2
+mount $P1 $BOOT
+mount $P2 $ROOTFS
+rm -rf $ROOTFS/*
+rm -rf $BOOT/*
+cp -v $LOC/BOOT.BIN $LOC/boot.scr $LOC/image.ub /mnt/BOOT
+tar xvf $LOC/rootfs.tar.gz -C $ROOTFS
+umount $P1
+umount $P2
+EOF
+```
