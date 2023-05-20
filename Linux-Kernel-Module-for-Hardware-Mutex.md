@@ -8,6 +8,10 @@
 to and from control and status registers).
 - AXI4-Stream—For high-speed streaming data.
 
+*To skip manual Block Design and Microblaze setup, use [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/hw/design_1_wrapper.xsa) `.xsa` file for the Petalinux part.*
+
+*To skip the module creation, you can use [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/tree/BlockMemMutex/os) folder as your base Petalinux project.*
+
 ## Block Design
 
 Our block design's purpose is to create a shared memory window between a Microblaze and the Zynq. We will use a BRAM controller and generator to create the physical registers, and connect both processors to the slave AXI interconnect ports. One of the master ports will be for a Uartlite IP for sending messages over the RS232 Pmod header to either the mirror controller, or a USB adapter for testing purposes. Another port is for the Mutex used to synchronize the Zynq and Microblaze. The final port is LEDs for debug purposes, and will blink an "SOS" signal when the Microblaze encounters an error.
@@ -26,9 +30,9 @@ set_property -dict { PACKAGE_PIN R14   IOSTANDARD LVCMOS33     } [get_ports { tx
 
 We need to add an elf file to the Microblaze's block memory so that messages copied into the shared memory buffer. To do this, we will create a Project in Vitis, compile a program, and "associate the elf file" in the block design.
 
-To create the project you must import the hardware description file. Either generate a `.xsa` file with the block design above, or just use [this]() `.xsa` file.
+To create the project you must import the hardware description file. To generate one, go to `File -> Export -> Export Hardware...`
 
-Copy [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/sw/main.c) file into your src folder of your Vitis project.
+Copy [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/sw/main.c) file into your src folder of your Vitis project. Build the project, and inside the `Debug` folder, you should have `<project name>.elf`. Go back to your Vivado project, open the block design, and right click on the Microblaze IP. Go to `Associate ELF Files...` and click the three dots by `Design Sources / design_1 / microblaze_0` to select the elf file. Now, export the `.xsa` file again, and we will use it in the Petalinux build.
 
 
 
