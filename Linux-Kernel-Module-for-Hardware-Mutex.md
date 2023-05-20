@@ -66,4 +66,4 @@ To make sure this compiles, run `petalinux-build -c <mutex module name>`. This w
 
 Now that we've added support for the Mutex IP, let's create a module for copying to block memory using the generated template provided by Petalinux. Since it would be cool to use bash or some scripting language like python to copy to block memory, let's implement the module as a character device so that we can treat it like a file and write to it.
 
-Here is a minimal example of [registering a character device](https://github.com/cirosantilli/linux-kernel-module-cheat/blob/master/kernel_modules/character_device_create.c) and an explanation of [character devices and file operations](https://linux-kernel-labs.github.io/refs/heads/master/labs/device_drivers.html)
+Here is a minimal example of [registering a character device](https://github.com/cirosantilli/linux-kernel-module-cheat/blob/master/kernel_modules/character_device_create.c) and an explanation of [read, write, open, and container_of](https://linux-kernel-labs.github.io/refs/heads/master/labs/device_drivers.html#open-and-release)
