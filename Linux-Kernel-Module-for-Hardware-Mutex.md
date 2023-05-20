@@ -76,7 +76,7 @@ The following script demonstrates successful delivery of all messages and will r
 
 ```bash
 sudo su
-FILE=/dev/<mutex module name>_dev
+FILE=/dev/<bmem module name>_dev
 printf '1XR2' >> $FILE
 printf '1D36000' >> $FILE
 printf '1G' >> $FILE
