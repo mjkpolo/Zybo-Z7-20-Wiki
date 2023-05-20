@@ -75,9 +75,11 @@ this module will create a file called `/dev/<mutex module name>_dev`. Here is an
 The following script demonstrates successful delivery of all messages and will rotate the mirror controller 360 degrees after calibrating it with the stored sequence `1XR2`
 
 ```bash
-printf '1XR2' >> /dev/<mutex module name>_dev
-printf '1D36000' >> /dev/<mutex module name>_dev
-printf '1G' >> /dev/<mutex module name>_dev
-printf '1D0' >> /dev/<mutex module name>_dev
-printf '1G' >> /dev/<mutex module name>_dev
+sudo su
+FILE=/dev/<mutex module name>_dev
+printf '1XR2' >> $FILE
+printf '1D36000' >> $FILE
+printf '1G' >> $FILE
+printf '1D0' >> $FILE
+printf '1G' >> $FILE
 ```
