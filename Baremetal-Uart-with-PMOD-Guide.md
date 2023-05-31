@@ -1,5 +1,9 @@
 # **Communicating with Zybo using RS232 PMOD**
 
+# **WARNING**
+
+This guide doesn't use `XUartLite_IsSending` or an interrupt which is necessary to not lose messages
+
 ## Setup
 - Open Vivado and Create a new Project and choose RTL Project
 - Next, click on the boards tab and find **Zybo Z7-20**. If the board is not listed, make sure you have all board files downloaded from Digilent.
