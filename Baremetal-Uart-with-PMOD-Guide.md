@@ -1,6 +1,6 @@
 # **Communicating with Zybo using RS232 PMOD**
 
-# *PLEASE READ, CRITICAL WARNINGS*
+# *PLEASE READ, DANGEROUS EXAMPLE CODE*
 1) There is a stack overflow bug since `seqLED` calls `UartLitePolledExample` which in turn calls `seqLED` which never returns and keeps increasing the call stack. **NEVER CODE THIS WAY PLEASE**
 2) This guide doesn't use `XUartLite_IsSending` or an interrupt which is necessary to not lose messages, so your results using this guide will vary
 
@@ -74,6 +74,8 @@ With `Vitis` launched, we will now implement the software that will drive what w
 - Give a name to your application and click `Next` twice (There is nothing to change in these sections).
 - Choose the `Empty Application(C)` Template and **Finish**
 - Under the `Explorer` window, find your application and get to the `src` folder inside, right-click and add a new `File`. Name your file `main.c`
+
+> **PLEASE READ THE WARNINGS AT THE TOP OF THE GUIDE** this example code should **never** be used in practice
 
 Add this code to `main.c` and save
 ```
