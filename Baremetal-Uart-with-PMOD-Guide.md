@@ -1,7 +1,7 @@
 # **Communicating with Zybo using RS232 PMOD**
 
 # *PLEASE READ, DANGEROUS EXAMPLE CODE*
-1) There is a stack overflow bug since `seqLED` calls `UartLitePolledExample` which in turn calls `seqLED` which never returns and keeps increasing the call stack. **NEVER CODE THIS WAY PLEASE**
+1) There is a stack overflow bug since `seqLED` calls `UartLitePolledExample` which in turn calls `seqLED` which never returns and keeps increasing the call stack. **NEVER CODE THIS WAY PLEASE, AND NEVER USE THIS FILE**
 2) This guide doesn't use `XUartLite_IsSending` or an interrupt which is necessary to not lose messages, so your results using this guide will vary
 
 
