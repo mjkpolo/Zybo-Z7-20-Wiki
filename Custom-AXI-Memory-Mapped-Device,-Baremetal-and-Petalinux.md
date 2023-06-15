@@ -60,7 +60,7 @@ myip_v1_0_S00_AXI # (
 ```
 Now that we have prepped the interface for our slave device, it's time to implement the device itself, and manipulate the ARREADY signal in the AXI interface such that a new memory request is not accepted until the device is finished. (This approach limits throughput, but this is not a problem for our use case)
 
-## Adding custom sources
+## Adding Custom Sources
 
 Our custom device and its sources are located [here](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/d8388cf8eef4b2454a21fe5c050455e68f28dc91/qnumbers_1_0/src). Clone or zip this repository so you can add the sources to your device. (You don't need ad1_spi.v or adc_model.v since we're not using them for this design)
 
@@ -81,4 +81,9 @@ newwrapper #(.CALC_WIDTH(64), .OP_WIDTH(32)) QMATH(
 // User logic ends
 endmodule
 ```
+Now that we have our device implemented it, it's time to save the IP and import it into a design with a Zynq or Microblaze! 
+
+To save your IP, find the tab labeled `Package IP - myip` and click every box which does not have a green check mark, and click the blue link to take the default action until the check marks are all green, and exit. Also, in compatibility, you can select `Ignore Freq_Hz` to avoid an error message.
+
+
 
