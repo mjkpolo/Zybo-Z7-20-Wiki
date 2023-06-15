@@ -83,7 +83,4 @@ endmodule
 ```
 Now that we have our device implemented it, it's time to save the IP and import it into a design with a Zynq or Microblaze! 
 
-To save your IP, find the tab labeled `Package IP - myip` and click every box which does not have a green check mark, and click the blue link to take the default action until the check marks are all green, and exit. Also, in compatibility, you can select `Ignore Freq_Hz` to avoid an error message.
-
-
-
+To save your IP, find the tab labeled `Package IP - myip` and click every box which does not have a green check mark, and click the blue link to take the default action until the check marks are all green. The last error you will have is FREQ_HZ not being defined. To fix this, you can go to `Ports and Interfaces`, right click and select `Edit Interface... -> Parameters -> Requires User Setting -> FREQ_HZ`, select the `->` arrow to add it, and change the value to `50MHZ` which is what we will most likely be using.
