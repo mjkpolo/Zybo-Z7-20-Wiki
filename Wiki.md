@@ -16,7 +16,8 @@
 
 # Petalinux
 1. [Shared Memory and Mutex Linux Kernel Module Guide](Linux Kernel Module for Hardware Mutex)
-2. [ssh to Petalinux device with a direct Ethernet connection](Ethernet Connection To Petalinux)
-3. *DEPRECATED* [Uartlize and Led Microblaze Example](uarlite & led microblaze design)
-4. *DEPRECATED* [Petalinux uboot build](Petalinux Project)
+2. [Custom Memory Mapped Device](Custom AXI Memory Mapped Device, Baremetal and Petalinux)
+3. [ssh to Petalinux device with a direct Ethernet connection](Ethernet Connection To Petalinux)
+4. *DEPRECATED* [Uartlize and Led Microblaze Example](uarlite & led microblaze design)
+5. *DEPRECATED* [Petalinux uboot build](Petalinux Project)
 
