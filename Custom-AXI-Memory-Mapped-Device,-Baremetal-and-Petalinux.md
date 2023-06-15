@@ -43,8 +43,8 @@ Next, we need to add these port connections to `myip_v1_0.v` to the `myip_v1_0_S
 
 ```verilog
 reg [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg0;
-reg [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg0;
-reg [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg0;
+reg [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg1;
+reg [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg2;
 // Instantiation of Axi Bus Interface S00_AXI
 myip_v1_0_S00_AXI # ( 
 	.C_S_AXI_DATA_WIDTH(C_S00_AXI_DATA_WIDTH),
@@ -55,7 +55,30 @@ myip_v1_0_S00_AXI # (
 	.S_AXI_RREADY(s00_axi_rready),
 	.slv_reg0(slv_reg0),
 	.slv_reg1(slv_reg1),
-	.slv_reg2(slv_reg02)
+	.slv_reg2(slv_reg2)
 );
 ```
 Now that we have prepped the interface for our slave device, it's time to implement the device itself, and manipulate the ARREADY signal in the AXI interface such that a new memory request is not accepted until the device is finished. (This approach limits throughput, but this is not a problem for our use case)
+
+## Adding custom sources
+
+Our custom device and its sources are located [here](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/d8388cf8eef4b2454a21fe5c050455e68f28dc91/qnumbers_1_0/src). Clone or zip this repository so you can add the sources to your device. (You don't need ad1_spi.v or adc_model.v since we're not using them for this design)
+
+Once this folder is cloned, go to the `+` symbol in your sources and add the files. They will automatically be copied to the `src` folder of your custom device. Now open `myip_v1_0.v` back up, and add your device called `newwrapper` to the bottom of the file:
+
+```verilog
+// Add user logic here
+newwrapper #(.CALC_WIDTH(64), .OP_WIDTH(32)) QMATH(
+  .clk(s00_axi_aclk),
+  .rst(~s00_axi_aresetn),
+  .slv_reg0(slv_reg0),
+  .slv_reg1(slv_reg1),
+  .slv_reg2(slv_reg2),
+  .slv_reg_wren(slv_reg_wren),
+  .test_out(out),
+  .done(done)
+);
+// User logic ends
+endmodule
+```
+
