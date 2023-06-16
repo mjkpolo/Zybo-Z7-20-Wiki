@@ -41,6 +41,7 @@ wire [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg0;
 wire [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg1;
 wire [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg2;
 wire done;
+wire slv_reg_wren;
 // Instantiation of Axi Bus Interface S00_AXI
 myip_v1_0_S00_AXI # ( 
 	.C_S_AXI_DATA_WIDTH(C_S00_AXI_DATA_WIDTH),
@@ -52,7 +53,8 @@ myip_v1_0_S00_AXI # (
 	.slv_reg0(slv_reg0),
 	.slv_reg1(slv_reg1),
 	.slv_reg2(slv_reg2),
-	.done(done)
+	.done(done),
+        .slv_reg_wren(slv_reg_wren)
 );
 ```
 Next we need to manipulate the `ARREADY` (Read Address Ready) so that a read request is not permitted until `done` is high. To do this, open `myip_v1_0_S00_AXI.v` and find line 321. Change the line like so:
