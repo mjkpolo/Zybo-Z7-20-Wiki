@@ -132,7 +132,7 @@ Our device works in the following way.
 - Slave register 1 is the second input number.
 - Slave register 2 is for both the operation and decimal point
   - if bit 0 == 1 MUL else ADD
-  - 5 bits for decimal point, since clog(32) => 5. bits 5-1 are used since the bit 0 is used for the operation
+  - 5 bits for decimal point, since clog2(32) => 5. bits 5-1 are used since the bit 0 is used for the operation
 
 For the next part, you can skip ahead to Linux, just do Baremetal, or both.
 
