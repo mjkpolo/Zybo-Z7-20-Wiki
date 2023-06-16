@@ -40,8 +40,9 @@ Next, we need to add these port connections to `myip_v1_0.v` to the `myip_v1_0_S
 wire [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg0;
 wire [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg1;
 wire [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg2;
-wire done;
-wire slv_reg_wren;
+wire				done;
+wire				slv_reg_wren;
+wire [C_S_AXI_DATA_WIDTH-1:0]	out;
 // Instantiation of Axi Bus Interface S00_AXI
 myip_v1_0_S00_AXI # ( 
 	.C_S_AXI_DATA_WIDTH(C_S00_AXI_DATA_WIDTH),
@@ -54,12 +55,25 @@ myip_v1_0_S00_AXI # (
 	.slv_reg1(slv_reg1),
 	.slv_reg2(slv_reg2),
 	.done(done),
-        .slv_reg_wren(slv_reg_wren)
+        .slv_reg_wren(slv_reg_wren),
+        .out(out)
 );
 ```
 Next we need to manipulate the `ARREADY` (Read Address Ready) so that a read request is not permitted until `done` is high. To do this, open `myip_v1_0_S00_AXI.v` and find line 321. Change the line like so:
 ```verilog
 	if (~axi_arready && S_AXI_ARVALID && done)
+```
+To make the data from the device accessible during a read transaction, find line 376 and replace `slv_reg3` with `out` like so:
+```verilog
+	// Address decoding for reading registers
+      case ( axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
+        2'h0   : reg_data_out <= slv_reg0;
+        2'h1   : reg_data_out <= slv_reg1;
+        2'h2   : reg_data_out <= slv_reg2;
+        2'h3   : reg_data_out <= out;
+        default : reg_data_out <= 0;
+      endcase
+
 ```
 
 Now that we have prepped the interface for our slave device, it's time to implement the device itself. For clarification on why certain values are selected, feel free to checkout the [test benches](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/7ecf3d40a2f17755066bba3afc805959aaadd06d/qnumbers_1_0/bench) which show our assumptions about the device.
@@ -105,7 +119,7 @@ Open or create a new block design, and place just a Zynq Processing System, and 
 
 Generate the bitstream, export the hardware, and you're finished with the hard part!
 
-**To double check that your design is correct, look at the timing parameters in Design Runs and compare to these results**
+**To double check that your design is correct, look at the timing results in Design Runs and compare to these. If these numbers match, but you are not getting the expected result, make sure you have connected all your signals, especially `out`**
 
 |  WNS   |  TNS   |  WHS   |  THS   | 
 | ------ | ------ | ------ | ------ |
@@ -117,7 +131,7 @@ Our device works in the following way.
 - Slave register 0 is the first input number to perform an operation on.
 - Slave register 1 is the second input number.
 - Slave register 2 is for both the operation and decimal point
-  - if bit 0 == 1 MUL else ADD)
+  - if bit 0 == 1 MUL else ADD
   - 5 bits for decimal point, since clog(32) => 5. bits 5-1 are used since the bit 0 is used for the operation
 
 For the next part, you can skip ahead to Linux, just do Baremetal, or both.
@@ -126,7 +140,8 @@ For the next part, you can skip ahead to Linux, just do Baremetal, or both.
 
 Open Vitis and create a new project with the hardware file you have exported. Vivado is super nice in that along with auto-generating AXI slave code for your device, it also auto-generates a baremetal C template here `ip_repo/myip_1_0/drivers/myip_v1_0/src`
 
-`myip.h` contains the slave register offsets and fairly useless write register macros that you don't have to use, and `xparameters.h` (Accessible from Vitis) contains the base address of your device. we will writing in the file `myip.c` and ignore the self-test file.
+`myip.h` contains the slave register offsets and fairly useless write register macros that you don't have to use, and `xparameters.h` (Accessible from Vitis) contains the base address of your device. we will copy `myip.h` to our vitis project, create a new `main.c` file, and copy that `main.c` file into our ip_repo when we are done to save that code in the ip_repo. 
 
+Copy 
 
 ## Linux
