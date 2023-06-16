@@ -76,11 +76,11 @@ To make the data from the device accessible during a read transaction, find line
 
 ```
 
-Now that we have prepped the interface for our slave device, it's time to implement the device itself. For clarification on why certain values are selected, feel free to checkout the [test benches](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/7ecf3d40a2f17755066bba3afc805959aaadd06d/qnumbers_1_0/bench) which show our assumptions about the device.
+Now that we have prepped the interface for our slave device, it's time to implement the device itself. For clarification on why certain values are selected, feel free to checkout the [test benches](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/545346a6f58f3d45b246473091c84e0757fe3f3a/qnumbers_1_0/bench) which show our assumptions about the device.
 
 ## Adding Custom Sources
 
-Our custom device and its sources are located [here](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/d8388cf8eef4b2454a21fe5c050455e68f28dc91/qnumbers_1_0/src). Clone or zip this repository so you can add the sources to your device. (You don't need ad1_spi.v or adc_model.v since we're not using them for this design)
+Our custom device and its sources are located [here](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/545346a6f58f3d45b246473091c84e0757fe3f3a/qnumbers_1_0/src). Clone or zip this repository so you can add the sources to your device. (You don't need ad1_spi.v or adc_model.v since we're not using them for this design)
 
 Once this folder is cloned, go to the `+` symbol in your sources and add the files. They will automatically be copied to the `src` folder of your custom device. Now open `myip_v1_0.v` back up, and add your device called `newwrapper` to the bottom of the file:
 
@@ -123,7 +123,7 @@ Generate the bitstream, export the hardware, and you're finished with the hard p
 
 |  WNS   |  TNS   |  WHS   |  THS   | 
 | ------ | ------ | ------ | ------ |
-| 13.297 | 0.000  |  0.040 |  0.000 |
+| 12.917 | 0.000  |  0.033 |  0.000 |
 
 ---
 
