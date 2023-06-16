@@ -104,3 +104,29 @@ Open or create a new block design, and place just a Zynq Processing System, and 
 ![image](uploads/bff490c4d31781193989f7cc341bf27e/image.png)
 
 Generate the bitstream, export the hardware, and you're finished with the hard part!
+
+**To double check that your design is correct, look at the timing parameters in Design Runs and compare to these results**
+
+|  WNS   |  TNS   |  WHS   |  THS   | 
+| ------ | ------ | ------ | ------ |
+| 13.297 | 0.000  |  0.040 |  0.000 |
+
+---
+
+Our device works in the following way.
+- Slave register 0 is the first input number to perform an operation on.
+- Slave register 1 is the second input number.
+- Slave register 2 is for both the operation and decimal point
+  - if bit 0 == 1 MUL else ADD)
+  - 5 bits for decimal point, since clog(32) => 5. bits 5-1 are used since the bit 0 is used for the operation
+
+For the next part, you can skip ahead to Linux, just do Baremetal, or both.
+
+## Baremetal
+
+Open Vitis and create a new project with the hardware file you have exported. Vivado is super nice in that along with auto-generating AXI slave code for your device, it also auto-generates a baremetal C template here `ip_repo/myip_1_0/drivers/myip_v1_0/src`
+
+`myip.h` contains the slave register offsets and fairly useless write register macros that you don't have to use, and `xparameters.h` (Accessible from Vitis) contains the base address of your device. we will writing in the file `myip.c` and ignore the self-test file.
+
+
+## Linux
