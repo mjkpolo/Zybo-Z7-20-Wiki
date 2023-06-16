@@ -16,35 +16,31 @@ To edit this IP right away, on the final menu screen select Edit IP. Alternative
 
 The are a couple things we must do to make a useful slave interface. The first thing is exposing the slave registers that we would like to use to the device we would like to connect. For our design, we will need access to the first 3 slave registers.
 
-To expose these registers, go to `myip_v1_0_S00_AXI.v` line 107 where the slave registers are declared. Simply move lines 107-109 to the top of your module definition and declare the registers as outputs like so:
+To expose these registers, go to `myip_v1_0_S00_AXI.v` line 107 where the slave registers are declared. Simply move lines 107-109 to the top of your module definition and declare the registers as outputs.
+Additionally, we will add a couple more signals
+
+- expose the `slv_reg_wren` signal just like you did the `slv_regX`s, so that our device knows when a new transaction should take place.
+- add a `done` signal as an input wire, so that we can stall AXI read requests until the device has finished processing the last valid data, given valid data is written when `slv_reg_wren` is high.
+- add an `out` signal so that our device's output can be memory mapped to the AXI interface
 
 ```verilog
-module myip_v1_0_S00_AXI #
-(
-	// Users to add parameters here
-
-	// User parameters ends
-	// Do not modify the parameters beyond this line
-
-	// Width of S_AXI data bus
-	parameter integer C_S_AXI_DATA_WIDTH	= 32,
-	// Width of S_AXI address bus
-	parameter integer C_S_AXI_ADDR_WIDTH	= 4
-)
-(
 	// Users to add ports here
-    output reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg0,
-    output reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg1,
-    output reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg2,
+output reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg0,
+output reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg1,
+output reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg2,
+input wire [C_S_AXI_DATA_WIDTH-1:0]	out,
+output wire				slv_reg_wren,
+input wire				done,
 	// User ports ends
-...
 ```
+
 Next, we need to add these port connections to `myip_v1_0.v` to the `myip_v1_0_S00_AXI` module in your design like so:
 
 ```verilog
-reg [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg0;
-reg [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg1;
-reg [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg2;
+wire [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg0;
+wire [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg1;
+wire [C_S00_AXI_DATA_WIDTH-1:0]	slv_reg2;
+wire done;
 // Instantiation of Axi Bus Interface S00_AXI
 myip_v1_0_S00_AXI # ( 
 	.C_S_AXI_DATA_WIDTH(C_S00_AXI_DATA_WIDTH),
@@ -55,10 +51,16 @@ myip_v1_0_S00_AXI # (
 	.S_AXI_RREADY(s00_axi_rready),
 	.slv_reg0(slv_reg0),
 	.slv_reg1(slv_reg1),
-	.slv_reg2(slv_reg2)
+	.slv_reg2(slv_reg2),
+	.done(done)
 );
 ```
-Now that we have prepped the interface for our slave device, it's time to implement the device itself, and manipulate the ARREADY signal in the AXI interface such that a new memory request is not accepted until the device is finished. (This approach limits throughput, but this is not a problem for our use case)
+Next we need to manipulate the `ARREADY` (Read Address Ready) so that a read request is not permitted until `done` is high. To do this, open `myip_v1_0_S00_AXI.v` and find line 321. Change the line like so:
+```verilog
+	if (~axi_arready && S_AXI_ARVALID && done)
+```
+
+Now that we have prepped the interface for our slave device, it's time to implement the device itself. For clarification on why certain values are selected, feel free to checkout the [test benches](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/7ecf3d40a2f17755066bba3afc805959aaadd06d/qnumbers_1_0/bench) which show our assumptions about the device.
 
 ## Adding Custom Sources
 
@@ -81,6 +83,22 @@ newwrapper #(.CALC_WIDTH(64), .OP_WIDTH(32)) QMATH(
 // User logic ends
 endmodule
 ```
+## Finish Packaging IP
+
 Now that we have our device implemented it, it's time to save the IP and import it into a design with a Zynq or Microblaze! 
 
-To save your IP, find the tab labeled `Package IP - myip` and click every box which does not have a green check mark, and click the blue link to take the default action until the check marks are all green. The last error you will have is FREQ_HZ not being defined. To fix this, you can go to `Ports and Interfaces`, right click and select `Edit Interface... -> Parameters -> Requires User Setting -> FREQ_HZ`, select the `->` arrow to add it, and change the value to `50MHZ` which is what we will most likely be using.
+To save your IP, find the tab labeled `Package IP - myip` and click every box which does not have a green check mark, and click the blue link to take the default action until the check marks are all green.
+
+The last error you will have is `FREQ_HZ` not being defined. To fix this, you can go to `Ports and Interfaces`, right click and select `Edit Interface... -> Parameters -> Requires User Setting -> FREQ_HZ`, select the `->` arrow to add it, and change the value to `50MHZ` which is what we will most likely be using.
+
+## Block Design
+
+Now we need to add our IP to our block design, so close the temporary IP Packaging project, and go back to your Vivado project. Note the location where `myip_v1` was saved.
+
+To add our custom IP to the block design, we must first add the IP location. Go to `Tools -> Settings... -> IP -> Repository` and make sure the folder containing your design is one of the repository sources.
+
+Open or create a new block design, and place just a Zynq Processing System, and myip_v1. Select all the default options for Block and Connection automation, and you will have the following block design created:
+
+![image](uploads/bff490c4d31781193989f7cc341bf27e/image.png)
+
+Generate the bitstream, and you're finished with the hard part!
