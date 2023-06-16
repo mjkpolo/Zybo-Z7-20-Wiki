@@ -76,11 +76,11 @@ To make the data from the device accessible during a read transaction, find line
 
 ```
 
-Now that we have prepped the interface for our slave device, it's time to implement the device itself. For clarification on why certain values are selected, feel free to checkout the [test benches](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/545346a6f58f3d45b246473091c84e0757fe3f3a/qnumbers_1_0/bench) which show our assumptions about the device.
+Now that we have prepped the interface for our slave device, it's time to implement the device itself. For clarification on why certain values are selected, feel free to checkout the [test benches](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/be570b47773b07d21e6d5a071bccf57707249b26/qnumbers_1_0/bench) which show our assumptions about the device.
 
 ## Adding Custom Sources
 
-Our custom device and its sources are located [here](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/545346a6f58f3d45b246473091c84e0757fe3f3a/qnumbers_1_0/src). Clone or zip this repository so you can add the sources to your device. (You don't need ad1_spi.v or adc_model.v since we're not using them for this design)
+Our custom device and its sources are located [here](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/be570b47773b07d21e6d5a071bccf57707249b26/qnumbers_1_0/src). Clone or zip this repository so you can add the sources to your device. (You don't need ad1_spi.v or adc_model.v since we're not using them for this design)
 
 Once this folder is cloned, go to the `+` symbol in your sources and add the files. They will automatically be copied to the `src` folder of your custom device. Now open `myip_v1_0.v` back up, and add your device called `newwrapper` to the bottom of the file:
 
@@ -142,6 +142,86 @@ Open Vitis and create a new project with the hardware file you have exported. Vi
 
 `myip.h` contains the slave register offsets and fairly useless write register macros that you don't have to use, and `xparameters.h` (Accessible from Vitis) contains the base address of your device. we will copy `myip.h` to our vitis project, create a new `main.c` file, and copy that `main.c` file into our ip_repo when we are done to save that code in the ip_repo. 
 
-Copy 
+Copy [this](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/blob/be570b47773b07d21e6d5a071bccf57707249b26/qnumbers_1_0/drivers/qnumbers_v1_0/src/qnumbers.c) file to `main.c`, build the project, and then open a serial connection to the device with either `screen` or `minicom`:
+- `screen /dev/ttyUSB1 115200`
+- `minicom -D /dev/ttyUSB1 -b 115200`
+
+You should see the following printout over and over:
+
+```
+=============================
+OP: +
+inA: DEADA55    inB: FACEB00F
+Q32.0 | 8B98A64
+Q31.1 | 8B98A64
+Q30.2 | 8B98A64
+Q29.3 | 8B98A64
+Q28.4 | 8B98A64
+Q27.5 | 8B98A64
+Q26.6 | 8B98A64
+Q25.7 | 8B98A64
+Q24.8 | 8B98A64
+Q23.9 | 8B98A64
+Q22.10 | 8B98A64
+Q21.11 | 8B98A64
+Q20.12 | 8B98A64
+Q19.13 | 8B98A64
+Q18.14 | 8B98A64
+Q17.15 | 8B98A64
+Q16.16 | 8B98A64
+Q15.17 | 8B98A64
+Q14.18 | 8B98A64
+Q13.19 | 8B98A64
+Q12.20 | 8B98A64
+Q11.21 | 8B98A64
+Q10.22 | 8B98A64
+Q9.23 | 8B98A64
+Q8.24 | 8B98A64
+Q7.25 | 8B98A64
+Q6.26 | 8B98A64
+Q5.27 | 8B98A64
+Q4.28 | 8B98A64
+Q3.29 | 8B98A64
+Q2.30 | 8B98A64
+Q1.31 | 8B98A64
+=============================
+=============================
+OP: *
+inA: DEADA55    inB: FACEB00F
+Q32.0 | 80000000
+Q31.1 | 80000000
+Q30.2 | 80000000
+Q29.3 | 80000000
+Q28.4 | 80000000
+Q27.5 | 80000000
+Q26.6 | 80000000
+Q25.7 | 80000000
+Q24.8 | 80000000
+Q23.9 | 80000000
+Q22.10 | 80000000
+Q21.11 | 80000000
+Q20.12 | 80000000
+Q19.13 | 80000000
+Q18.14 | 80000000
+Q17.15 | 80000000
+Q16.16 | 80000000
+Q15.17 | 80000000
+Q14.18 | 80000000
+Q13.19 | 80000000
+Q12.20 | 80000000
+Q11.21 | 80000000
+Q10.22 | 80000000
+Q9.23 | 80000000
+Q8.24 | B7BB6FF9
+Q7.25 | DBDDB7FC
+Q6.26 | EDEEDBFE
+Q5.27 | F6F76DFF
+Q4.28 | FB7BB6FF
+Q3.29 | FDBDDB7F
+Q2.30 | FEDEEDBF
+Q1.31 | FF6F76DF
+=============================
+
+```
 
 ## Linux
