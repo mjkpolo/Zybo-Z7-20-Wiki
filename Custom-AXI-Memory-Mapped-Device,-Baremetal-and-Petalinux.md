@@ -101,4 +101,18 @@ Open or create a new block design, and place just a Zynq Processing System, and 
 
 ![image](uploads/bff490c4d31781193989f7cc341bf27e/image.png)
 
-Generate the bitstream, and you're finished with the hard part!
+Generate the bitstream, export the hardware, and you're finished with the hard part!
+
+___
+
+To use the device, we can either write bare-metal code, or we can write Linux code.
+1. [Baremetal](#Baremetal)
+2. [Linux](#Linux)
+
+## Baremetal
+
+ooga booga
+
+## Linux
+
+pee pee poo poo
