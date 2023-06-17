@@ -3,7 +3,7 @@
 - `curl` for vivado to sync available BSP list (click `download` to make it available)
 - `git-lfs` for cloning this repository. (recurse to clone submodules)
    ```
-   git clone --recurse git@gitlab.ssec.wisc.edu:mkurzynski/qemu-zc706-petalinux.git
+   git clone --depth 1 git@gitlab.ssec.wisc.edu:mkurzynski/qemu-zc706-petalinux.git
    ```
 
 ## Table of Contents
