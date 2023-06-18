@@ -76,11 +76,11 @@ To make the data from the device accessible during a read transaction, find line
 
 ```
 
-Now that we have prepped the interface for our slave device, it's time to implement the device itself. For clarification on why certain values are selected, feel free to checkout the [test benches](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/be570b47773b07d21e6d5a071bccf57707249b26/qnumbers_1_0/bench) which show our assumptions about the device.
+Now that we have prepped the interface for our slave device, it's time to implement the device itself. For clarification on why certain values are selected, feel free to checkout the [test benches](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/5ed59c7a6fd52d65a420a9075856374eb8e94fbe/qnumbers_1_0/bench) which show our assumptions about the device.
 
 ## Adding Custom Sources
 
-Our custom device and its sources are located [here](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/be570b47773b07d21e6d5a071bccf57707249b26/qnumbers_1_0/src). Clone or zip this repository so you can add the sources to your device. (You don't need ad1_spi.v or adc_model.v since we're not using them for this design)
+Our custom device and its sources are located [here](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/tree/5ed59c7a6fd52d65a420a9075856374eb8e94fbe/qnumbers_1_0/src). Clone or zip this repository so you can add the sources to your device. (You don't need ad1_spi.v or adc_model.v since we're not using them for this design)
 
 Once this folder is cloned, go to the `+` symbol in your sources and add the files. They will automatically be copied to the `src` folder of your custom device. Now open `myip_v1_0.v` back up, and add your device called `newwrapper` to the bottom of the file:
 
