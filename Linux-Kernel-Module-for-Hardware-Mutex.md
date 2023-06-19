@@ -8,9 +8,9 @@
 to and from control and status registers).
 - AXI4-Stream—For high-speed streaming data.
 
-*To skip Block Design and Microblaze setup, use [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/hw/design_1_wrapper.xsa) `.xsa` file for the Petalinux part.*
+*To skip Block Design and Microblaze setup, use [this](https://gitlab.ssec.wisc.edu/NextGenSHIS/petalinux-zybo-z7-20/-/blob/BlockMemMutex/hw/design_1_wrapper.xsa) `.xsa` file for the Petalinux part.*
 
-*To skip the module creation and Block Design, you can use [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/tree/BlockMemMutex/os) folder as your base Petalinux project.*
+*To skip the module creation and Block Design, you can use [this](https://gitlab.ssec.wisc.edu/NextGenSHIS/petalinux-zybo-z7-20/-/tree/BlockMemMutex/os) folder as your base Petalinux project.*
 
 ## Block Design
 
@@ -18,7 +18,7 @@ Our block design's purpose is to create a shared memory window between a Microbl
 
 ![image](uploads/260be8f8efc7144a52a876ddf85c0179/image.png)
 
-To recreate this design, you can run [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/hw/design_1.tcl) tcl script by opening Vivado and going to `Tools -> Run Tcl Script...`
+To recreate this design, you can run [this](https://gitlab.ssec.wisc.edu/NextGenSHIS/petalinux-zybo-z7-20/-/blob/BlockMemMutex/hw/design_1.tcl) tcl script by opening Vivado and going to `Tools -> Run Tcl Script...`
 
 In addition to the Block Design above, a constraints file is needed for our custom external pins of the Uartlite. To add a constraints file, go to the plus button `Add Sources -> Add or create constraints` and create a new file. Paste these lines to tie the RX and TX pins to the Pmod header
 ```
@@ -32,13 +32,13 @@ We need to add an elf file to the Microblaze's block memory so that messages cop
 
 To create the project you must import the hardware description file. After generating a wrapper for the board design, click `Generate Bitstream`, then go to `File -> Export -> Export Hardware...` and select include bitstream.
 
-Copy [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/sw/main.c) file into your src folder of your Vitis project. Build the project, and inside the `Debug` folder, you should have `<project name>.elf`. Go back to your Vivado project, open the block design, and right click on the Microblaze IP. Go to `Associate ELF Files...` and click the three dots by `Design Sources / design_1 / microblaze_0` to select the elf file. Now, export the `.xsa` file again, and we will use it in the Petalinux build.
+Copy [this](https://gitlab.ssec.wisc.edu/NextGenSHIS/petalinux-zybo-z7-20/-/blob/BlockMemMutex/sw/main.c) file into your src folder of your Vitis project. Build the project, and inside the `Debug` folder, you should have `<project name>.elf`. Go back to your Vivado project, open the block design, and right click on the Microblaze IP. Go to `Associate ELF Files...` and click the three dots by `Design Sources / design_1 / microblaze_0` to select the elf file. Now, export the `.xsa` file again, and we will use it in the Petalinux build.
 
 # Petalinux
 
 Petalinux is a wrapper around other tools like Yocto and Bitbake design by Xilinx to work with Vivado XSA files which describe the system.
 
-> This example is assuming you've created a development container and launched it with [this](https://gitlab.ssec.wisc.edu/mkurzynski/qemu-zc706-petalinux/-/blob/master/go.sh) script which mounts your home directory to `/mnt` and uses a volume for storage so that containers are all temporary and deleted upon shutdown.
+> This example is assuming you've created a development container and launched it with [this](https://gitlab.ssec.wisc.edu/NextGenSHIS/qemu-zc706-petalinux/-/blob/master/go.sh) script which mounts your home directory to `/mnt` and uses a volume for storage so that containers are all temporary and deleted upon shutdown.
 
 ## Setup
 
@@ -56,9 +56,9 @@ To create a module, run `petalinux-create -t modules -n <mutex module name>` and
 
 The module I wrote is based on [this](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/hwspinlock/stm32_hwspinlock.c) module, and is mostly a copy of it. The lock functions were taken from the [Xilinx embeddedsw repo](https://github.com/Xilinx/embeddedsw/blob/master/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c)
 
-Copy [my module](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofmutex/files/ofmutex.c) to the file `<mutex module name>.c`, and add [hwspinlock_internal.h](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/hwspinlock/hwspinlock_internal.h) as a new file.
+Copy [my module](https://gitlab.ssec.wisc.edu/NextGenSHIS/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofmutex/files/ofmutex.c) to the file `<mutex module name>.c`, and add [hwspinlock_internal.h](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/hwspinlock/hwspinlock_internal.h) as a new file.
 
-Since we added the header file, cd back one directory and change the contents of `<mutex module name>.bb` to [this](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofmutex/ofmutex.bb) so that it is included with the module.
+Since we added the header file, cd back one directory and change the contents of `<mutex module name>.bb` to [this](https://gitlab.ssec.wisc.edu/NextGenSHIS/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofmutex/ofmutex.bb) so that it is included with the module.
 
 To make sure this compiles, run `petalinux-build -c <mutex module name>`. This will take a long time the first time, and will be very short after since the project is saved inside the volume.
 
@@ -68,7 +68,7 @@ Now that we've added support for the Mutex IP, let's create a module for copying
 
 Here is a minimal example of [registering a character device](https://github.com/cirosantilli/linux-kernel-module-cheat/blob/master/kernel_modules/character_device_create.c) and an explanation of [read, write, open, registration, and container_of](https://linux-kernel-labs.github.io/refs/heads/master/labs/device_drivers.html#implementation-of-operations)
 
-create another module in the same way, and copy [my](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofblockmem/files/ofblockmem.c) module to `<bmem module name>.c` in the `files` folder.
+create another module in the same way, and copy [my](https://gitlab.ssec.wisc.edu/NextGenSHIS/petalinux-zybo-z7-20/-/blob/BlockMemMutex/os/project-spec/meta-user/recipes-modules/ofblockmem/files/ofblockmem.c) module to `<bmem module name>.c` in the `files` folder.
 
 this module will create a file called `/dev/<bmem module name>_dev`. Here is an example of writing a series of commands using the append option, since in this demo, the microblaze only clears the buffer every 1 second for testing writing multiple commands to the buffer.
 
