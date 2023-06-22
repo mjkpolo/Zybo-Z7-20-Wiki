@@ -140,7 +140,7 @@ For the next part, you can skip ahead to Linux, just do Baremetal, or both.
 
 Open Vitis and create a new project with the hardware file you have exported. Vivado is super nice in that along with auto-generating AXI slave code for your device, it also auto-generates a baremetal C template here `ip_repo/myip_1_0/drivers/myip_v1_0/src`
 
-`myip.h` contains the slave register offsets and fairly useless write register macros that you don't have to use, and `xparameters.h` (Accessible from Vitis) contains the base address of your device. we will copy `myip.h` to our vitis project, create a new `main.c` file, and copy that `main.c` file into our ip_repo when we are done to save that code in the ip_repo. 
+`myip.h` contains the slave register offsets and fairly useless write register macros that you don't have to use, and `xparameters.h` (Accessible from Vitis) contains the base address of your device. we will copy `myip.h` to our vitis project, create a new `main.c` file, and copy that `main.c` file into our ip_repo when we are done to save that code in the ip_repo. You can remove or adjust the `usleeps` to make sure the code works under all circumstances, such as increasing the time between printouts or fetching the request immediately after you make it.
 
 Copy [this](https://gitlab.ssec.wisc.edu/nextgenshis/ip_repo/-/blob/be570b47773b07d21e6d5a071bccf57707249b26/qnumbers_1_0/drivers/qnumbers_v1_0/src/qnumbers.c) file to `main.c`, build the project, and then open a serial connection to the device with either `screen` or `minicom`:
 - `screen /dev/ttyUSB1 115200`
