@@ -238,4 +238,4 @@ The module is mostly boilerplate code, and the main logic is
 ```c
 
 ```
-Copy [my module](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c) to `<module name>.c`. This assumes you named your IP block `myip`. To use a different name, change [this line](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c#L214)
+Copy [my module](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c) [and this file](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.h) to `files`. This assumes you named your IP block `myip`. To use a different name, change [this line](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c#L214)
