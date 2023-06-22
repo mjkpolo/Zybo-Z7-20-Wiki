@@ -225,3 +225,7 @@ Q1.31 | FF6F76DF
 ```
 
 ## Linux
+
+For writing our device driver, we will make a character device file that is accessible via [`ioctl`](https://docs.kernel.org/driver-api/ioctl.html)s.
+
+> To skip this part and immediately build the project, either unpack this [BSP](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/BSP0.bsp), or use [this folder](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/tree/qnumbers/os).
