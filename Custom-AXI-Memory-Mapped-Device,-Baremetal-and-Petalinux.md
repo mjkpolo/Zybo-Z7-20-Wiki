@@ -286,3 +286,5 @@ data.out: 1d3a7
 and to check your result, you can use [this website](https://chummersone.github.io/qformat.html#arithmetic). Here is an example for this calculation:
 
 ![image](uploads/c2b59bb865a21822499bdfe091913730/image.png)
+
+***Fine***
