@@ -265,4 +265,22 @@ static long myioctl(struct file *file, unsigned int cmd, unsigned long arg) {
 
 
 ```
-Copy [my module](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c) [and this file](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.h) to `files`. This assumes you named your IP block `myip`. To use a different name, change [this line](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c#L214)
+Copy [my module](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c) [and this file](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.h) to `files`. This assumes you named your IP block `myip`. To use a different name, change [this line](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c#L214). If you need to find your device tree to locate the compatible string, run `find -n pl.dtsi .`
+
+To use our new module, let's create a C application with `petalinux-create -t apps -n <app name> --enable` and `cd`/`pushd` to `project-spec/meta-user/recipes-apps/<app name>/files/` and [copy my test file](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-apps/ofqnumbertest/files/ofqnumbertest.c). For our test file to access the struct definitions used in the ioctl, we can symlink the header file from the module files to the app's files directory.
+
+Build and package your module and copy it to the SD card as explained in [this previous guide](Linux Kernel Module for Hardware Mutex#building-and-flashing-sd-card)
+
+After logging in and becoming `root` you can run `ofqnumbertest` which prints usage information. For an example of a Multiply, you can run
+```bash
+os:/home/petalinux# ofqnumbertest 187 1323 2 4
+req.inA: 187
+req.inB: 1323
+req.flag: 2
+req.Q: 4
+Request Success!
+data.out: 1d3a7
+```
+and to check your result, you can use [this website](https://chummersone.github.io/qformat.html#arithmetic). Here is an example for this calculation:
+
+![image](uploads/c2b59bb865a21822499bdfe091913730/image.png)
