@@ -236,6 +236,33 @@ To generate a module template run `petalinux-create -t projects -n <module name>
 
 The module is mostly boilerplate code, and the main logic is 
 ```c
+static long myioctl(struct file *file, unsigned int cmd, unsigned long arg) {
+	struct ofqnumber_local *lp = file->private_data;
+	struct qnumber_request myreq;
+	struct qnumber_data mydata;
+	__u32 slv_reg[3];
+	int i;
+
+	switch (cmd) {
+		case QNUMBER_REQUEST_IOCTL:
+			if (copy_from_user(&myreq, (void*)arg, sizeof(myreq)))
+				return -EFAULT;
+			slv_reg[0] = myreq.inA;
+			slv_reg[1] = myreq.inB;
+			slv_reg[2] = (myreq.Q << 1) | (myreq.flag == QNUMBER_MUL ? 1 : 0);
+			for (i=0; i < 3; i++)
+				iowrite32(slv_reg[i], lp->base_addr+(i*sizeof(__u32)));
+			return 0;
+		case QNUMBER_DATA_IOCTL:
+			mydata.out = ioread32(lp->base_addr+(3*sizeof(__u32)));
+			if (copy_to_user((void*)arg, &mydata, sizeof(mydata)))
+				return -EFAULT;
+			return 0;
+		default:
+			return -EINVAL;
+	}
+}
+
 
 ```
 Copy [my module](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c) [and this file](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.h) to `files`. This assumes you named your IP block `myip`. To use a different name, change [this line](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c#L214)
