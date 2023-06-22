@@ -122,8 +122,8 @@ Generate the bitstream, export the hardware, and you're finished with the hard p
 **To double check that your design is correct, look at the timing results in Design Runs and compare to these. If these numbers match, but you are not getting the expected result, make sure you have connected all your signals, especially `out`**
 
 |  WNS   |  TNS   |  WHS   |  THS   | 
-| ------ | ------ | ------ | ------ |
-| 12.917 | 0.000  |  0.033 |  0.000 |
+| ---    | ---    | ---    | ---    |
+| 12.769 | 0.000  |  0.043 |  0.000 |
 
 ---
 
