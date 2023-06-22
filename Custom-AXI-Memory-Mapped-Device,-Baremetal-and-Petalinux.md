@@ -229,3 +229,13 @@ Q1.31 | FF6F76DF
 For writing our device driver, we will make a character device file that is accessible via [`ioctl`](https://docs.kernel.org/driver-api/ioctl.html)s.
 
 > To skip this part and immediately build the project, either unpack this [BSP](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/BSP0.bsp), or use [this folder](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/tree/qnumbers/os).
+
+First create your project `petalinux-create -t project -n <name> --template zynq` and import the hardware description `petalinux-config --get-hw-description /mnt/<project name>/design_1_wrapper.xsa` to turn off `sstate feeds` and change the image to `EXT4`.
+
+To generate a module template run `petalinux-create -t projects -n <module name> --enable` and `cd`/`pushd` to `project-spec/meta-user/recipes-modules/<module name>/files/`
+
+The module is mostly boilerplate code, and the main logic is 
+```c
+
+```
+Copy [my module](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c) to `<module name>.c`. This assumes you named your IP block `myip`. To use a different name, change [this line](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20/-/blob/qnumbers/os/project-spec/meta-user/recipes-modules/ofqnumber/files/ofqnumber.c#L214)
