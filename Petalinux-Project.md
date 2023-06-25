@@ -14,7 +14,7 @@ Next, enter the docker container and mount a location to copy the boot files out
 docker run --rm -itv $PWD:/media peta
 ```
 
-The `submodules` folder is copied into the image. Each device will have its own submodule. Each submodule is linked to a specific hash or version in the device's repository. The [Zybo Z7-20](https://gitlab.ssec.wisc.edu/mkurzynski/petalinux-zybo-z7-20) device submodule was copied from [here](https://github.com/Digilent/Zybo-Z7/tree/master). This base project will be used to build our custom Petalinux image
+The `submodules` folder is copied into the image. Each device will have its own submodule. Each submodule is linked to a specific hash or version in the device's repository. The [Zybo Z7-20](https://gitlab.ssec.wisc.edu/nextgenshis/petalinux-zybo-z7-20) device submodule was copied from [here](https://github.com/Digilent/Zybo-Z7/tree/master). This base project will be used to build our custom Petalinux image
 
 cd into your device's os folder and turn into bucky
 
