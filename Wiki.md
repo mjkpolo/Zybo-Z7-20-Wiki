@@ -13,6 +13,7 @@
 2. [Baremetal Zynq ADC](Baremetal Zybo ADC PMOD Guide)
 3. [Baremetal PWM LED Guide](Baremetal PWM LED Guide) 
 4. [Baremetal Zynq with Uartlite Mirror Controller](Baremetal Zybo Uart with Mirror Controller Guide)
+5. [Baremetal Zybo Zynq with UARTlite (One wire Interface)](Baremetal-Zybo-Zynq-with-UARTlite-(One-wire-Interface))
 
 # Petalinux
 1. [Shared Memory and Mutex Linux Kernel Module Guide](Linux Kernel Module for Hardware Mutex)
