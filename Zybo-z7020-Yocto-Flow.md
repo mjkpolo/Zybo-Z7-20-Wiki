@@ -80,9 +80,19 @@ earlier when we created folders, we made one inside `recipes-kernel` called `lin
 ```
 CORE_IMAGE_EXTRA_INSTALL += " hello-seaman"
 ```
-in `$LAYER/recipes-kernel/linux-xlnx` add [this file](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/blob/hello-seaman/meta-seaman/recipes-kernel/linux-xlnx/hello-seaman.bb). `inherit module` will auto-magically compile everything for us.
+in `$LAYER/recipes-kernel/linux-xlnx` add our recipe
+```shell
+wget https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/raw/hello-seaman/meta-seaman/recipes-kernel/linux-xlnx/hello-seaman.bb
+```
+`inherit module` will auto-magically compile everything for us.
 
-Next add the sources to `linux-xlnx/files/`. Copy [these files (yes, including `COPYING`)](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/tree/hello-seaman/meta-seaman/recipes-kernel/linux-xlnx/files) and open `hello-seaman.c`. You should notice that it should print `Hello Seaman!` when you do
+Next add the sources to `linux-xlnx/files/`. 
+```shell
+wget https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/raw/hello-seaman/meta-seaman/recipes-kernel/linux-xlnx/files/hello-seaman.c
+wget https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/raw/hello-seaman/meta-seaman/recipes-kernel/linux-xlnx/files/Makefile
+wget https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/raw/hello-seaman/meta-seaman/recipes-kernel/linux-xlnx/files/COPYING
+```
+Open `hello-seaman.c` and notice that it should print `Hello Seaman!` when you do
 ```shell
 modprobe hello-seaman
 ```
