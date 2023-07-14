@@ -6,9 +6,9 @@ The [poky](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky) repo has been se
 
 ## Objectives
 
-- [Make a poky environment with all the layers we need to build for Zybo](#docker)
-- [Generate an SD card image that simply boots](#basic-build)
-- [Add a module that says "Hello Seaman!" and generate a new SD card image](#add-module)
+- [Make a Docker environment for poky](#docker)
+- [Clone layers we need and generate an SD card image that simply boots](#basic-build)
+- [Add a test module and generate a new SD card image](#add-module)
 - [Change our device tree to use a custom url](#customize-device-tree)
 - [Make a new machine configuration for any Xilinx FPGA](#generate-machine-config)
 - **[Save your work and push to Gitlab!!](#saving-back-to-gitlab)**
