@@ -1,5 +1,3 @@
-> Sections are ranked on difficulty
-
 ## Dependencies
 
 - `curl` for vivado to sync available BSP list (click `download` to make it available)
@@ -28,8 +26,3 @@
 
 # Yocto
 1. [Zybo z7020 Yocto Build and Boot](Zybo z7020 Yocto Flow)
-
-**Rating**
-
-<img src="uploads/226b045a3eef102d6ecd0be47fa029d6/laptopchad.png"  width="420" height="220">
-
