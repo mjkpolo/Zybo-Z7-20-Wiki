@@ -41,7 +41,7 @@ fdisk /dev/sdX
 mkfs.vfat -F32 /dev/sdX1
 mkfs.ext4 /dev/sdX2
 ```
-Mount the partitions and go to `poky/build/tmp/deploy/image/linux` to copy `uImage`, `boot.bin`, and `boot.scr` to `/dev/sdX1`
+Mount the partitions and go to `poky/build/tmp/deploy/images/linux` to copy `uImage`, `boot.bin`, and `boot.scr` to `/dev/sdX1`
 ```shell
 [ -e /mnt/BOOT ] || mkdir /mnt/BOOT
 [ -e /mnt/rootfs ] || mkdir /mnt/rootfs
