@@ -22,3 +22,7 @@
 4. *DEPRECATED* [Uartlize and Led Microblaze Example](uarlite & led microblaze design)
 5. *DEPRECATED* [Petalinux uboot build](Petalinux Project)
 
+# Yocto
+1. [Zybo z7020 Yocto Build and Boot](Zybo z7020 Yocto Flow)
+
+
