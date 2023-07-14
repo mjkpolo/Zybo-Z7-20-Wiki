@@ -100,6 +100,7 @@ We will be customizing a PID IP. The node will appear in `pl.dtsi`. This is what
 
 add this file to `$LAYER/recipes-bsp/device-tree` TODO
 
+It changes the information in [device tree files](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/meta-xilinx-tools/-/tree/mickledore/recipes-bsp/device-tree) to use our forked device tree repo which has my [PID data](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/device-tree/-/tree/master/pid/data)
 
 Just run `bitbake core-image-minimal` again and this is the new contents of `pl.dtsi`
 ```
@@ -115,5 +116,5 @@ Just run `bitbake core-image-minimal` again and this is the new contents of `pl.
                 };
 ...
 ```
-
+The difference is we've added a `xlnx,Q` from our board design. This tells us how many decimals places our PID module is set to. Actually, we've also added the last two parameters since they disappeared for some reason.
 ***Fine***
