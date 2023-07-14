@@ -96,8 +96,9 @@ wget https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/raw/hello-seaman/meta
 
 Rebuild with `bitbake core-image-minimal` and copy your files to the SD card again.
 
-you should be able to replicate this
-```shell
+Here is an example of loading and unloading your module
+
+```console
 root@zynq-generic-7z020:~# modprobe hello-seaman
 hello_seaman: loading out-of-tree module taints kernel.
 Hello Seaman!
