@@ -12,6 +12,11 @@ The [poky](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky) repo has been se
 - [Change the device tree](#customize-device-tree)
 - [Upload to gitlab](#saving-back-to-gitlab)
 
+## Prerequisites
+
+- A `.xsa` file you've exported from Vivado in the [`yocto-dev`](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/yocto-dev) folder
+- A clone of [`poky`](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky) on your host machine for pushing changes to gitlab
+
 ## Docker
 
 Clone the development repo to get a docker image for yocto
