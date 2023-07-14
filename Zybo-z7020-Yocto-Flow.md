@@ -6,11 +6,11 @@ The [poky](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky) repo has been se
 
 ## Objectives
 
-- [Setup a Yocto Build environment with a `.xsa` file](#Docker)
-- Generate an SD card image
-- Add a module
-- Change the device tree
-- [Upload to gitlab](#Saving-back-to-Gitlab)
+- [Setup a Yocto Build environment with a `.xsa` file](#docker)
+- [Generate an SD card image](#basic-build)
+- [Add a module](#add-module)
+- [Change the device tree](#customize-device-tree)
+- [Upload to gitlab](#saving-back-to-gitlab)
 
 ## Docker
 
@@ -166,7 +166,7 @@ MACHINE ?= "zynq-generic-7z020"
 `??=` means weak-weak, `?=` means weak, and `=` means normal assignment. Most of the time `?=` or `=` is fine
 
 
-## Saving back to Gitlab
+# Saving back to Gitlab
 
 The most important part is making sure your work gets saved. git ignores all `meta-*` so we need to add `meta-seaman` to our `/yocto-vol/poky/.gitignore`
 ```
