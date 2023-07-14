@@ -70,7 +70,7 @@ You can login with `root` and no password is needed.
 Our goal is to write a module and have it print `Hello Seaman!` to the screen. To do this, we will create a new layer. The name has to start with `meta-`...
 ```shell
 LAYER=/yocto-vol/poky/meta-seaman
-mkdir -p $LAYER/{conf/machine,recipes-kernel/linux-xlnx/files,recipes-bsp/device-tree}
+mkdir -p $LAYER/{recipes-kernel/linux-xlnx/files,recipes-bsp/device-tree}
 bitbake-layers add-layer $LAYER
 ```
 We will add the module in `recipes-kernel` and pull a custom device tree in `recipes-bsp`
