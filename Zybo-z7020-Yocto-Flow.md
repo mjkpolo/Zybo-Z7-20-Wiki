@@ -117,4 +117,19 @@ Just run `bitbake core-image-minimal` again and this is the new contents of `pl.
 ...
 ```
 The difference is we've added a `xlnx,Q` from our board design. This tells us how many decimals places our PID module is set to. Actually, we've also added the last two parameters since they disappeared for some reason.
+
+## Generate Machine Config
+
+It will be very difficult to get another FPGA running without generating a machine config for it using your `.xsa` file.
+
+```
+/yocto-vol/poky/meta-xilinx/meta-xilinx-core/gen-machine-conf/gen-machineconf --soc-family zynq --hw-description /tmp/design_1_wrapper.xsa
+```
+You can update the default machine in `/yocto-vol/poky/build/conf/local.conf`
+```
+MACHINE ?= "zynq-generic-7z020"
+```
+`??=` means weak-weak, `?=` means weak, and `=` means normal assignment. Most of the time `?=` or `=` is fine
+
+
 ***Fine***
