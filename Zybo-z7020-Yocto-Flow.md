@@ -55,10 +55,10 @@ The `boot.scr` script expects your device tree blob to be named `system.dtb` so 
 cp zynq-generic-7z020-system.dtb /mnt/BOOT/system.dtb
 ```
 
-finally extract the `zynq-generic-7z020/core-image-minimal-zynq-generic-7z020.tar.gz` to `/mnt/rootfs` and sync to the SD card
+finally extract the `core-image-minimal-zynq-generic-7z020.tar.gz` to `/mnt/rootfs` and sync to the SD card
 
 ```shell
-tar xf zynq-generic-7z020/core-image-minimal-zynq-generic-7z020.tar.gz -C /mnt/rootfs
+tar xf core-image-minimal-zynq-generic-7z020.tar.gz -C /mnt/rootfs
 sync
 minicom -D /dev/ttyUSBX -b 115200
 ```
@@ -96,14 +96,15 @@ wget https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/raw/hello-seaman/meta
 
 Rebuild with `bitbake core-image-minimal` and copy your files to the SD card again.
 
-Open `hello-seaman.c` and notice that it should print `Hello Seaman!` when you do
+you should be able to replicate this
 ```shell
-modprobe hello-seaman
+root@zynq-generic-7z020:~# modprobe hello-seaman
+hello_seaman: loading out-of-tree module taints kernel.
+Hello Seaman!
+root@zynq-generic-7z020:~# modprobe -r hello-seaman
+Ahoy!
 ```
-and it should say `Ahoy!` when you do
-```shell
-modprobe -r hello-seaman
-```
+
 
 ## Customize Device tree
 
