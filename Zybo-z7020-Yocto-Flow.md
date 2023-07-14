@@ -18,7 +18,7 @@ A `go.sh` script is provided which builds the container if you pass a `.xsa` fil
 ```
 The script also creates a volume and links it to `yocto-vol` so you can copy your files to the SD card once you're finished, and files persist even after you close your container.
 
-## Yocto
+## Basic Build
 
 Once you've attached to the container, clone our fork of `poky`
 ```
@@ -37,17 +37,39 @@ It is possible to build many different targets, including more feature-full ones
 
 Finally, format an SD card to have a 128MB+ fat32 partition 1, and ext4 partition 2. Using `fdisk`, do `o`,`n`,`p` to create a new disk image and start a partition. After selecting the sizes (default or `+128MB` for the second boot range) you can mark the first partition bootable with `a` to be safe.
 ```
-fdisk /dev/<disk>
-mkfs.vfat -F32 /dev/<disk>1
-mkfs.ext4 /dev/<disk>2
+fdisk /dev/sdX
+mkfs.vfat -F32 /dev/sdX1
+mkfs.ext4 /dev/sdX2
 ```
-Mount the partitions and go to `poky/build/tmp/deploy/image/linux` to copy `uImage`, `boot.bin`, and `boot.scr` to `/dev/<disk>1`
+Mount the partitions and go to `poky/build/tmp/deploy/image/linux` to copy `uImage`, `boot.bin`, and `boot.scr` to `/dev/sdX1`
 ```
 [ -e /mnt/BOOT ] || mkdir /mnt/BOOT
 [ -e /mnt/rootfs ] || mkdir /mnt/rootfs
-mount /dev/<disk>1 /mnt/BOOT
-mount /dev/<disk>2 /mnt/rootfs
-cp uImage boot.bin boot.scr /dev/<disk>1
+mount /dev/sdX1 /mnt/BOOT
+mount /dev/sdX2 /mnt/rootfs
+cp uImage boot.bin boot.scr /dev/sdX1
 ```
-The `boot.scr` script expects your device tree blob to be named `system.dtb` so copy `
+The `boot.scr` script expects your device tree blob to be named `system.dtb` so copy `zynq-generic-7z020-system.dtb` to `/mnt/BOOT/system.dtb`
+
+```
+cp zynq-generic-7z020-system.dtb /mnt/BOOT/system.dtb
+```
+
+finally extract the `zynq-generic-7z020/core-image-minimal-zynq-generic-7z020.tar.gz` to `/mnt/rootfs` and sync to the SD card
+
+```
+tar xf zynq-generic-7z020/core-image-minimal-zynq-generic-7z020.tar.gz -C /mnt/rootfs
+sync
+```
+You can login with `root` and no password is needed.
+
+## Add Module and Customize Device Tree
+
+> [Xilinx Confluence Wiki Guide](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/57836605/Creating+a+Custom+Yocto+Layer)
+
+Our goal is to write a module and have it print `Hello Seaman!` to the screen
+```
+
+```
+
 ***Fine***
