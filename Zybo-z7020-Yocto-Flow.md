@@ -8,12 +8,12 @@ The [poky](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky) repo has been se
 
 Clone the development repo to get a docker image for yocto
 
-```
+```shell
 git clone git@gitlab.ssec.wisc.edu:nextgenshis/yocto/yocto-dev.git
 ```
 A `go.sh` script is provided which builds the container if you pass a `.xsa` file as an argument which you have copied to that directory. Docker doesn't like being passed files outside of its working directory.
 
-```
+```shell
 ./go.sh design_1_wrapper.xsa
 ```
 The script also creates a volume and links it to `yocto-vol` so you can copy your files to the SD card once you're finished, and files persist even after you close your container.
@@ -21,28 +21,28 @@ The script also creates a volume and links it to `yocto-vol` so you can copy you
 ## Basic Build
 
 Once you've attached to the container, clone our fork of `poky`
-```
+```shell
 git clone https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky --depth 1 --recurse
 ```
 To source the bitbake environment do this
-```
+```shell
 cd poky
 . oe-init-build-env
 ```
 this will put you in the build directory. To start a build run this
-```
+```shell
 bitbake core-image-minimal
 ```
 It is possible to build many different targets, including more feature-full ones by adding recipes to your build and new layers. For example, if you are missing a tool needed, it may be in [`meta-petalinux`](https://github.com/Xilinx/meta-petalinux/tree/rel-v2023.1) or other related layers. A manifest of all the layers and their versions used by Petalinux can be found [here](https://github.com/Xilinx/yocto-manifests/tree/rel-v2023.1) along with [more general yocto instructions](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841862/Install+and+Build+with+Xilinx+Yocto) to use these manifests.
 
 Finally, format an SD card to have a 128MB+ fat32 partition 1, and ext4 partition 2. Using `fdisk`, do `o`,`n`,`p` to create a new disk image and start a partition. After selecting the sizes (default or `+128MB` for the second boot range) you can mark the first partition bootable with `a` to be safe.
-```
+```shell
 fdisk /dev/sdX
 mkfs.vfat -F32 /dev/sdX1
 mkfs.ext4 /dev/sdX2
 ```
 Mount the partitions and go to `poky/build/tmp/deploy/image/linux` to copy `uImage`, `boot.bin`, and `boot.scr` to `/dev/sdX1`
-```
+```shell
 [ -e /mnt/BOOT ] || mkdir /mnt/BOOT
 [ -e /mnt/rootfs ] || mkdir /mnt/rootfs
 mount /dev/sdX1 /mnt/BOOT
@@ -51,13 +51,13 @@ cp uImage boot.bin boot.scr /dev/sdX1
 ```
 The `boot.scr` script expects your device tree blob to be named `system.dtb` so copy `zynq-generic-7z020-system.dtb` to `/mnt/BOOT/system.dtb`
 
-```
+```shell
 cp zynq-generic-7z020-system.dtb /mnt/BOOT/system.dtb
 ```
 
 finally extract the `zynq-generic-7z020/core-image-minimal-zynq-generic-7z020.tar.gz` to `/mnt/rootfs` and sync to the SD card
 
-```
+```shell
 tar xf zynq-generic-7z020/core-image-minimal-zynq-generic-7z020.tar.gz -C /mnt/rootfs
 sync
 ```
@@ -68,7 +68,7 @@ You can login with `root` and no password is needed.
 > [Xilinx Confluence Wiki Guide](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/57836605/Creating+a+Custom+Yocto+Layer)
 
 Our goal is to write a module and have it print `Hello Seaman!` to the screen. To do this, we will create a new layer. The name has to start with `meta-`...
-```
+```shell
 LAYER=/yocto-vol/poky/meta-seaman
 mkdir -p $LAYER/{conf/machine,recipes-kernel/linux-xlnx/files,recipes-bsp/device-tree}
 bitbake-layers add-layer $LAYER
@@ -122,7 +122,7 @@ The difference is we've added a `xlnx,Q` from our board design. This tells us ho
 
 It will be very difficult to get another FPGA running without generating a machine config for it using your `.xsa` file.
 
-```
+```shell
 /yocto-vol/poky/meta-xilinx/meta-xilinx-core/gen-machine-conf/gen-machineconf --soc-family zynq --hw-description /tmp/design_1_wrapper.xsa
 ```
 You can update the default machine in `/yocto-vol/poky/build/conf/local.conf`
@@ -131,5 +131,31 @@ MACHINE ?= "zynq-generic-7z020"
 ```
 `??=` means weak-weak, `?=` means weak, and `=` means normal assignment. Most of the time `?=` or `=` is fine
 
+
+## Saving back to Gitlab
+
+The most important part is making sure your work gets saved. git ignores all `meta-*` so we need to add `meta-seaman` to our `/yocto-vol/poky/.gitignore`
+```
+!meta-seaman
+```
+This is what you should see when you do `git status`
+```shell
+$ git status
+On branch mickledore
+Your branch is up to date with 'origin/mickledore'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .gitignore
+        modified:   build/conf/bblayers.conf
+        modified:   build/conf/local.conf
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        meta-seaman/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
 
 ***Fine***
