@@ -23,7 +23,7 @@ The [poky](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky) repo has been se
 Clone the development repo to get a docker image for yocto
 
 ```shell
-git clone git@gitlab.ssec.wisc.edu:nextgenshis/yocto/yocto-dev.git
+git clone git@gitlab.ssec.wisc.edu:nextgenshis/yocto/yocto-dev.git --depth 1
 ```
 A `go.sh` script is provided which builds the container if you pass a `.xsa` file as an argument which you have copied to that directory. Docker doesn't like being passed files outside of its working directory.
 
