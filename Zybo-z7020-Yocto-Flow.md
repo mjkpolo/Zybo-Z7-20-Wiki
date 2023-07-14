@@ -47,7 +47,7 @@ Mount the partitions and go to `poky/build/tmp/deploy/images/zynq-generic-7z020`
 [ -e /mnt/rootfs ] || mkdir /mnt/rootfs
 mount /dev/sdX1 /mnt/BOOT
 mount /dev/sdX2 /mnt/rootfs
-cp uImage boot.bin boot.scr /dev/sdX1
+cp uImage boot.bin boot.scr /mnt/BOOT
 ```
 The `boot.scr` script expects your device tree blob to be named `system.dtb` so copy `zynq-generic-7z020-system.dtb` to `/mnt/BOOT/system.dtb`
 
@@ -60,6 +60,7 @@ finally extract the `zynq-generic-7z020/core-image-minimal-zynq-generic-7z020.ta
 ```shell
 tar xf zynq-generic-7z020/core-image-minimal-zynq-generic-7z020.tar.gz -C /mnt/rootfs
 sync
+minicom -D /dev/ttyUSBX -b 115200
 ```
 You can login with `root` and no password is needed.
 
