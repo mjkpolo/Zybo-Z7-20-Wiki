@@ -173,10 +173,10 @@ git commit -m 'seaman'
 git format-patch HEAD~1
 git reset HEAD~1
 ```
-this should make something like `0001-uncommited.patch`
+this should make something like `0001-seaman.patch`
 detach from your container and go into your host's 'poky' repo to apply the patch
 ```shell
-git apply ../yocto-vol/0001-uncommited.patch
+git apply ../yocto-vol/0001-seaman.patch
 ```
 and the changes should appear.
 
