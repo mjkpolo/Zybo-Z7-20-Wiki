@@ -4,6 +4,14 @@
 
 The [poky](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky) repo has been setup with a default base project on the `mickledore` branch for zynq development. It includes a generated config for this zybo, and the machine configuration generator that was used to generate it, allowing you to automatically add new nodes to the device tree when your `.xsa` file changes
 
+## Objectives
+
+- [Setup a Yocto Build environment with a `.xsa` file](#Docker)
+- Generate an SD card image
+- Add a module
+- Change the device tree
+- [Upload to gitlab](#Saving-back-to-Gitlab)
+
 ## Docker
 
 Clone the development repo to get a docker image for yocto
