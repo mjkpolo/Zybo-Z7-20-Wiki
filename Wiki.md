@@ -1,3 +1,5 @@
+> Sections are ranked on difficulty
+
 ## Dependencies
 
 - `curl` for vivado to sync available BSP list (click `download` to make it available)
@@ -15,6 +17,8 @@
 4. [Baremetal Zynq with Uartlite Mirror Controller](Baremetal Zybo Uart with Mirror Controller Guide)
 5. [Baremetal Zybo Zynq with UARTlite (One wire Interface)](Baremetal-Zybo-Zynq-with-UARTlite-(One-wire-Interface))
 
+
+
 # Petalinux
 1. [Shared Memory and Mutex Linux Kernel Module Guide](Linux Kernel Module for Hardware Mutex)
 2. [Custom Memory Mapped Device](Custom AXI Memory Mapped Device, Baremetal and Petalinux)
@@ -24,5 +28,6 @@
 
 # Yocto
 1. [Zybo z7020 Yocto Build and Boot](Zybo z7020 Yocto Flow)
-
+**Rating**
+<img src="uploads/226b045a3eef102d6ecd0be47fa029d6/laptopchad.png"  width="420" height="220">
 
