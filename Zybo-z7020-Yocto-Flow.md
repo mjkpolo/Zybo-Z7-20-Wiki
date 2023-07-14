@@ -63,13 +63,57 @@ sync
 ```
 You can login with `root` and no password is needed.
 
-## Add Module and Customize Device Tree
+## Add Module
 
 > [Xilinx Confluence Wiki Guide](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/57836605/Creating+a+Custom+Yocto+Layer)
 
-Our goal is to write a module and have it print `Hello Seaman!` to the screen
+Our goal is to write a module and have it print `Hello Seaman!` to the screen. To do this, we will create a new layer. The name has to start with `meta-`...
+```
+LAYER=/yocto-vol/poky/meta-seaman
+mkdir -p $LAYER/{conf/machine,recipes-kernel/linux-xlnx/files,recipes-bsp/device-tree}
+bitbake-layers add-layer $LAYER
+```
+We will add the module in `recipes-kernel` and pull a custom device tree in `recipes-bsp`
+
+earlier when we created folders, we made one inside `recipes-kernel` called `linux-xlnx`. That's the name of the kernel, but the folder name can be anything, as long as you add the following in `/yocto-vol/poky/build/conf/local.conf` and name the files accordingly:
+```
+CORE_IMAGE_EXTRA_INSTALL += " hello-seaman"
+```
+in `$LAYER/recipes-kernel/linux-xlnx` add this file TODO
+
+## Customize Device tree
+
+We will be customizing a PID IP. The node will appear in `pl.dtsi`. This is what the PID node looks like before customization:
+
+```
+...
+                pid_0: pid@43c00000 {
+                        clock-names = "s00_axi_aclk";
+                        clocks = <&clkc 15>;
+                        compatible = "xlnx,pid-1.0";
+                        reg = <0x43c00000 0x10000>;
+                        xlnx,s00-axi-addr-width = <0x4>;
+                        xlnx,s00-axi-data-width = <0x20>;
+                };
+...
 ```
 
+add this file to `$LAYER/recipes-bsp/device-tree` TODO
+
+
+Just run `bitbake core-image-minimal` again and this is the new contents of `pl.dtsi`
+```
+...
+                        pid_0: pid@43c00000 {
+                        clock-names = "s00_axi_aclk";
+                        clocks = <&clkc 15>;
+                        compatible = "xlnx,pid-1.0";
+                        reg = <0x43c00000 0x10000>;
+                        xlnx,Q = <0x6>;
+                        xlnx,s00-axi-addr-width = <0x4>;
+                        xlnx,s00-axi-data-width = <0x20>;
+                };
+...
 ```
 
 ***Fine***
