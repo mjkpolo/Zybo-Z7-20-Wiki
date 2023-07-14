@@ -71,6 +71,7 @@ You can login with `root` and no password is needed.
 Our goal is to write a module and have it print `Hello Seaman!` to the screen. To do this, we will create a new layer. The name has to start with `meta-`...
 ```shell
 LAYER=/yocto-vol/poky/meta-seaman
+bitbake-layers create-layer $LAYER
 mkdir -p $LAYER/{recipes-kernel/linux-xlnx/files,recipes-bsp/device-tree}
 bitbake-layers add-layer $LAYER
 ```
@@ -92,6 +93,9 @@ wget https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/raw/hello-seaman/meta
 wget https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/raw/hello-seaman/meta-seaman/recipes-kernel/linux-xlnx/files/Makefile
 wget https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/raw/hello-seaman/meta-seaman/recipes-kernel/linux-xlnx/files/COPYING
 ```
+
+Rebuild with `bitbake core-image-minimal` and copy your files to the SD card again.
+
 Open `hello-seaman.c` and notice that it should print `Hello Seaman!` when you do
 ```shell
 modprobe hello-seaman
