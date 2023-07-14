@@ -82,11 +82,11 @@ CORE_IMAGE_EXTRA_INSTALL += " hello-seaman"
 in `$LAYER/recipes-kernel/linux-xlnx` add [this file](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/blob/hello-seaman/meta-seaman/recipes-kernel/linux-xlnx/hello-seaman.bb). `inherit module` will auto-magically compile everything for us.
 
 Next add the sources to `linux-xlnx/files/`. Copy [these files (yes, including `COPYING`)](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky/-/tree/hello-seaman/meta-seaman/recipes-kernel/linux-xlnx/files) and open `hello-seaman.c`. You should notice that it should print `Hello Seaman!` when you do
-```
+```shell
 modprobe hello-seaman
 ```
 and it should say `Ahoy!` when you do
-```
+```shell
 modprobe -r hello-seaman
 ```
 
