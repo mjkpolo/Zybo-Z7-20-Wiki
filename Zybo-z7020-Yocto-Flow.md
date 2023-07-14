@@ -109,7 +109,7 @@ We will be customizing a PID IP. The node will appear in `pl.dtsi`. This is what
 
 add this file to `$LAYER/recipes-bsp/device-tree` TODO
 
-It changes the information in [device tree files](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/meta-xilinx-tools/-/tree/mickledore/recipes-bsp/device-tree) to use our forked device tree repo which has my [PID data](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/device-tree/-/tree/6ed5fea3be41365d099e54058c711c2bbeba099c/pid/data)
+It [changes the information in device tree files](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/meta-xilinx-tools/-/commit/58516345be292a4927d3c37c1ba9defbfff3602b) to use our forked device tree repo which has my [PID data](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/device-tree/-/tree/6ed5fea3be41365d099e54058c711c2bbeba099c/pid/data)
 
 Just run `bitbake core-image-minimal` again and this is the new contents of `pl.dtsi`
 ```
