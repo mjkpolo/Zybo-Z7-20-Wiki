@@ -171,4 +171,13 @@ git apply ../yocto-vol/0001-uncommited.patch
 ```
 and the changes should appear.
 
+now push to a new branch. Don't push to `mickledore` and even if you try it shouldn't let you.
+
+```shell
+git add .
+git commit -m 'hello seaman, I just applied my first patch'
+git checkout -b hello-seaman-<your name>
+git push --set-upstream origin hello-seaman-<your name>
+```
+
 ***Fine***
