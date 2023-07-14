@@ -104,7 +104,7 @@ add this file to `$LAYER/recipes-bsp/device-tree` TODO
 Just run `bitbake core-image-minimal` again and this is the new contents of `pl.dtsi`
 ```
 ...
-                        pid_0: pid@43c00000 {
+                pid_0: pid@43c00000 {
                         clock-names = "s00_axi_aclk";
                         clocks = <&clkc 15>;
                         compatible = "xlnx,pid-1.0";
