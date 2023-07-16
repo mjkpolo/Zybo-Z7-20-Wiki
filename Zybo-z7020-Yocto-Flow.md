@@ -8,9 +8,10 @@ The [poky](https://gitlab.ssec.wisc.edu/nextgenshis/yocto/poky) repo has been se
 
 - [Make a Docker environment for poky](#docker)
 - [Clone layers we need and generate an SD card image that simply boots](#basic-build)
-- [Add a test module and generate a new SD card image](#add-module)
+- [Add a test module](#add-module)
 - [Change our device tree to use a custom url](#customize-device-tree)
 - [Make a new machine configuration for any Xilinx FPGA](#generate-machine-config)
+- [Make an initramfs image](#initramfs)
 - **[Save your work and push to Gitlab!!](#saving-back-to-gitlab)**
 
 ## Prerequisites
@@ -171,6 +172,21 @@ MACHINE ?= "zynq-generic-7z020"
 ```
 `??=` means weak-weak, `?=` means weak, and `=` means normal assignment. Most of the time `?=` or `=` is fine
 
+# Initramfs
+
+By [using an initramfs](https://landley.net/writing/rootfs-howto.html) we make turning the board off and on again even more effective, since the rootfs is used, and copies a fresh filesystem to ram on every boot.
+
+add these lines to this file and change `core-image-minimal` to the target you're using
+
+`/yocto-vol/pocky/build/conf/local.conf`:
+```
+INITRAMFS_IMAGE = "core-image-minimal"
+INITRAMFS_IMAGE_BUNDLE = "1"
+```
+Now when you copy back to the sd card, replace the `uImage` with a new one. We can do this because we asked for the initramfs to be bundled with the Image.
+```
+cp uImage-initramfs-zynq-generic-7z020.bin /mnt/BOOT/uImage
+```
 
 # Saving back to Gitlab
 
